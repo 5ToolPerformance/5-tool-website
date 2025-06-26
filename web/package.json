@@ -3,12 +3,26 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --port 3333",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.10.1"
+    "@astrojs/react": "^4.3.0",
+    "@sanity/astro": "^3.2.6",
+    "@sanity/client": "^7.6.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@types/react-is": "^19.0.0",
+    "astro": "^5.10.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-is": "^19.1.0",
+    "sanity": "^3.95.0",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4"
   }
 }
