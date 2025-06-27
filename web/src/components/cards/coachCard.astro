@@ -1,0 +1,47 @@
+---
+import type { Image } from '../../lib/types';
+import { urlForImage } from '../../lib/urlForImage';
+
+interface Props {
+  name: string;
+  role: string;
+  image: Image;
+  slug: string;
+}
+
+const { name, role, image, slug } = Astro.props as Props;
+---
+
+<div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
+  <div class="aspect-w-3 aspect-h-4 relative h-80 w-full overflow-hidden">
+    {image ? (
+      <img 
+        src={`${urlForImage(image).url()}`}
+        alt={name}
+        width={600}
+        height={800}
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+      />
+    ) : (
+      <div class="h-full w-full bg-gray-200 flex items-center justify-center">
+        <span class="text-gray-400">No Image</span>
+      </div>
+    )}
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+      <a 
+        href={`/coaches/${slug}`}
+        class="inline-flex items-center text-white font-medium hover:underline"
+      >
+        Read more
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="p-6">
+    <h3 class="text-xl font-bold text-gray-900">{name}</h3>
+    <p class="mt-1 text-gray-600">{role}</p>
+  </div>
+</div>

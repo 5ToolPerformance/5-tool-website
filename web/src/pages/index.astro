@@ -7,6 +7,7 @@ import Hero from '../components/homePageSections/Hero.astro';
 const homePageData = await getHomePageData();
 const heroSection = getSection(homePageData.content, 'hero');
 const aboutSection = getSection(homePageData.content, 'aboutSection');
+const coachesSection = getSection(homePageData.content, 'coachesSection');
 ---
 
 <Layout>
