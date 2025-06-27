@@ -3,13 +3,16 @@ import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import { getHomePageData, getSection } from '../lib/homePageHelper';
 import Hero from '../components/homePageSections/Hero.astro';
+import AboutSection from '../components/homePageSections/AboutSection.astro';
 
 const homePageData = await getHomePageData();
 const heroSection = getSection(homePageData.content, 'hero');
 const aboutSection = getSection(homePageData.content, 'aboutSection');
 const coachesSection = getSection(homePageData.content, 'coachesSection');
+console.log(coachesSection);
 ---
 
 <Layout>
 	<Hero {...heroSection} />
+	<AboutSection {...aboutSection} />
 </Layout>
