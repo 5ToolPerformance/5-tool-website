@@ -2,6 +2,7 @@
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import { getHomePageData, getSection } from '../lib/homePageHelper';
+import Hero from '../components/homePageSections/Hero.astro';
 
 const homePageData = await getHomePageData();
 const heroSection = getSection(homePageData.content, 'hero');
@@ -9,10 +10,5 @@ const aboutSection = getSection(homePageData.content, 'aboutSection');
 ---
 
 <Layout>
-	<h1>{heroSection.title}</h1>
-	<p>{heroSection.content}</p>
-	
-	<a href={heroSection.cta1.link}><button>{heroSection.cta1.title}</button></a>
-	<a href={heroSection.cta2.link}><button>{heroSection.cta2.title}</button></a>
-	<Welcome />
+	<Hero {...heroSection} />
 </Layout>

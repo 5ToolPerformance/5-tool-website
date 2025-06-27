@@ -1,0 +1,144 @@
+---
+// Define Props interface
+export interface Props {
+  logo?: {
+    src: string;
+    alt: string;
+  };
+  siteName?: string;
+  navLinks?: Array<{
+    href: string;
+    text: string;
+  }>;
+}
+
+// Set default props
+const { 
+  logo,
+  siteName = 'My Site',
+  navLinks = [
+    { href: '/', text: 'Home' },
+    { href: '/about', text: 'About' },
+    { href: '/contact', text: 'Contact' },
+  ]
+} = Astro.props;
+---
+
+<header class="header">
+  <div class="header__container">
+    <a href="/" class="header__logo">
+      {logo ? (
+        <img src={logo.src} alt={logo.alt} class="header__logo-img" />
+      ) : (
+        <span class="header__logo-text">{siteName}</span>
+      )}
+    </a>
+    
+    <nav class="header__nav">
+      <ul class="header__nav-list">
+        {navLinks.map((link) => (
+          <li class="header__nav-item">
+            <a href={link.href} class="header__nav-link">
+              {link.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style lang="scss">
+  @use '../styles/variables' as *;
+  .header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    font-family: $font-family-sans;
+
+    &__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__logo {
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #333;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &__logo-img {
+      height: 40px;
+      width: auto;
+    }
+
+    &__logo-text {
+      color: inherit;
+    }
+
+    &__nav-list {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 1.5rem;
+    }
+
+    &__nav-link {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #2563eb;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #2563eb;
+        transition: width 0.3s ease;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    .header {
+      &__container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      &__nav-list {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  }
+</style>
