@@ -1,35 +1,12 @@
 ---
 import { getAllCoaches } from '../../lib/coachesHelper';
-import CoachCard from '../cards/CoachCard.astro';
 import CoachCarousel from '../CoachCarousel.astro';
-
-export interface Props {
-  title: string;
-  subtitle?: string;
-  description?: string;
-}
-
-const { title, subtitle, description } = Astro.props;
-
 // Fetch all coaches
 const coaches = await getAllCoaches();
 ---
 
 <section class="bg-gray-50 py-16 sm:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-2xl text-center">
-      {subtitle && (
-        <p class="text-base font-semibold leading-7 text-blue-600">{subtitle}</p>
-      )}
-      <h2 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-        {title}
-      </h2>
-      {description && (
-        <p class="mt-6 text-lg leading-8 text-gray-600">
-          {description}
-        </p>
-      )}
-    </div>
 
     <CoachCarousel coaches={coaches} />
   </div>
