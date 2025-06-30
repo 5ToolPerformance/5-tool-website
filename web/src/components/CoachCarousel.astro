@@ -13,7 +13,10 @@ export interface Coach {
   title: string;
   image: Image;
   description: string;
-  slug: string;
+  slug: {
+    current: string;
+    _type: string;
+  };
 }
 
 export interface Props {
@@ -21,7 +24,8 @@ export interface Props {
   title?: string;
 }
 
-const { coaches, title = "Meet Our Coaches" } = Astro.props;
+const { coaches, title = "Meet The Team" } = Astro.props;
+console.log(coaches)
 ---
 
 <section class="py-16 bg-gray-50">
@@ -29,7 +33,7 @@ const { coaches, title = "Meet Our Coaches" } = Astro.props;
     <div class="text-center mb-12">
       <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">{title}</h2>
       <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-        Discover our team of experienced coaches ready to help you achieve your goals.
+        Meet the team of experienced coaches and professionals ready to help you achieve your goals.
       </p>
     </div>
 
