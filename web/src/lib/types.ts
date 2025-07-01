@@ -1,4 +1,4 @@
-export type Image = {
+export type ImageType = {
   _type: string;
   alt: string;
   asset: {
