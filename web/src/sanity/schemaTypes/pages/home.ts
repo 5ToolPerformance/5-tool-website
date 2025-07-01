@@ -26,6 +26,9 @@ export const home = defineType({
         defineArrayMember({
           type: "coachesSection"
         }),
+        defineArrayMember({
+          type: "contactSection"
+        }),
         ],
     })
   ]
