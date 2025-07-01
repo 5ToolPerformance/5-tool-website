@@ -7,17 +7,21 @@ import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const { data: coaches } = await loadQuery<SanityDocument[]>({
-    query: `*[_type == "coach"]`,
+    query: `*[_type == "coaches"]`,
   });
 
-  return coaches.map(({ slug }) => ({
-    params: { slug: slug.current },
-  }));
+  return coaches.map(({ slug }) => {
+    return {
+      params: {
+        slug: slug.current,
+      },
+    };
+  });
 }
 
 const { params } = Astro;
 const { data: coach } = await loadQuery({
-  query: `*[_type == "coach" && slug.current == $slug][0]`,
+  query: `*[_type == "coaches" && slug.current == $slug][0]`,
   params,
 });
 
