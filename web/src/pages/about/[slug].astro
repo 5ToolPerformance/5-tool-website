@@ -1,0 +1,84 @@
+---
+// ./src/pages/about/[slug].astro
+import type { SanityDocument } from "@sanity/client";
+import { loadQuery } from "../../lib/load-query";
+import { urlForImage } from "../../lib/urlForImage";
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const { data: coaches } = await loadQuery<SanityDocument[]>({
+    query: `*[_type == "coach"]`,
+  });
+
+  return coaches.map(({ slug }) => ({
+    params: { slug: slug.current },
+  }));
+}
+
+const { params } = Astro;
+const { data: coach } = await loadQuery({
+  query: `*[_type == "coach" && slug.current == $slug][0]`,
+  params,
+});
+
+const imageUrl = coach?.image ? urlForImage(coach.image).url() : '';
+---
+
+<Layout title={`${coach?.name || 'Coach'} | 5 Tool Performance`}>
+  <div class="min-h-screen bg-white">
+    {/* Hero Section */}
+    <div class="relative bg-blue-600 py-16 md:py-24">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center">
+          <div class="mb-8">
+            {imageUrl && (
+              <div class="mx-auto h-48 w-48 rounded-full border-4 border-white overflow-hidden bg-white">
+                <img 
+                  src={imageUrl} 
+                  alt={coach?.name} 
+                  class="h-full w-full object-cover"
+                />
+              </div>
+            )}
+          </div>
+          <h1 class="text-4xl font-bold text-white">{coach?.name}</h1>
+          <p class="mt-2 text-xl text-blue-100">{coach?.title}</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Main Content */}
+    <div class="py-12 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+        {/* About Section */}
+        <div class="mb-12">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">About Me</h2>
+          <div class="prose max-w-none text-gray-600">
+            {coach?.description && (
+              <div class="whitespace-pre-line">{coach.description}</div>
+            )}
+          </div>
+        </div>
+
+        {/* Expertise Section */}
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Areas of Expertise</h2>
+          <div class="space-y-3">
+            {coach?.expertise?.length > 0 ? (
+              coach.expertise.map((item: string) => (
+                <div class="flex items-start">
+                  <svg class="h-6 w-6 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span class="text-gray-700">{item}</span>
+                </div>
+              ))
+            ) : (
+              <p class="text-gray-500">No expertise information available.</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
