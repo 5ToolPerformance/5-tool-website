@@ -18,7 +18,7 @@ export const callToAction = defineType({
     defineField({
       name: "buttonLink",
       title: "Button Link",
-      type: "url",
+      type: "string",
     }),
-  ]
-})
+  ],
+});

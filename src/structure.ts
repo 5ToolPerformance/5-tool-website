@@ -75,7 +75,7 @@ export const structure: StructureResolver = (S) =>
       // List out all other document types that aren't in the custom structure above
       ...S.documentTypeListItems().filter(
         (listItem) =>
-          !["home", "aboutPage", "resources", "coach", "companyInfo"].includes(
+          !["home", "aboutPage", "coach", "resources", "companyInfo"].includes(
             listItem.getId() || ""
           )
       ),
