@@ -1,26 +1,17 @@
 import { defineType, defineField, defineArrayMember } from "sanity";
+import { page, baseFields } from "../page";
 
 export const resources = defineType({
+  ...page,
   name: "resources",
   title: "Resources",
-  type: "document",
   fields: [
-    defineField({
-      name: "title",
-      title: "Title",
-      type: "string",
-      readOnly: true,
-      initialValue: "Resources",
-    }),
+    ...baseFields,
     defineField({
       name: "description",
       title: "Description",
       type: "text",
-    }),
-    defineField({
-      name: "heroImage",
-      title: "Hero Image",
-      type: "customImage",
+      group: "content",
     }),
     defineField({
       name: "resourceCards",
@@ -31,6 +22,7 @@ export const resources = defineType({
           type: "resourceCard",
         }),
       ],
+      group: "content",
     }),
   ],
 });

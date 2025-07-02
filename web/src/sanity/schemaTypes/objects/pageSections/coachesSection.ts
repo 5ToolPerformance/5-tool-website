@@ -19,17 +19,21 @@ export const coachesSection = defineType({
       name: "coaches",
       title: "Coaches",
       type: "array",
-      of: [{ type: "reference",
-        to: [{ type: "coaches" }],
-        options: {
-          // This will show the preview of the coach in the selection
-          filter: `_type == "coaches"`,
-        } }],
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "coach" }],
+          options: {
+            // This will show the preview of the coach in the selection
+            filter: `_type == "coach"`,
+          },
+        },
+      ],
     }),
     defineField({
       name: "cta",
       title: "Call To Action",
       type: "callToAction",
-    })
-  ]
-})
+    }),
+  ],
+});

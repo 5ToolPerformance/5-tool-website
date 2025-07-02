@@ -1,7 +1,7 @@
 import { defineType, defineField } from "sanity";
 
-export const coaches = defineType({
-  name: "coaches",
+export const coach = defineType({
+  name: "coach",
   title: "Coaches",
   type: "document",
   preview: {

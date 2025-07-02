@@ -1,7 +1,6 @@
-import { coaches } from "./objects/coach";
+import { coach } from "./objects/coach";
 import { customImage } from "./objects/customImage";
 import { home } from "./pages/home";
-import { address } from "./objects/address";
 import { hero } from "./objects/pageSections/hero";
 import { callToAction } from "./objects/callToAction";
 import { aboutSection } from "./objects/pageSections/aboutSection";
@@ -10,21 +9,31 @@ import { contactSection } from "./objects/pageSections/contactSection";
 import { aboutPage } from "./pages/about";
 import { resources } from "./pages/resources";
 import { resourceCard } from "./objects/resourceCard";
+import { companyInfo } from "./companyInfo";
+import { page } from "./page";
 import type { SchemaTypeDefinition } from "sanity";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
+    // Base types
+    page,
     customImage,
-    coaches,
+    
+    // Page types
     home,
-    address,
+    aboutPage,
+    resources,
+    
+    // Object types
     hero,
     callToAction,
     aboutSection,
     coachesSection,
     contactSection,
-    aboutPage,
-    resources,
     resourceCard,
+    
+    // Document types
+    coach,
+    companyInfo,
   ],
 };

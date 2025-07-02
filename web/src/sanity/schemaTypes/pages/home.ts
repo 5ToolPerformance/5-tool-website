@@ -1,35 +1,31 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { page, baseFields } from "../page";
 
 export const home = defineType({
+  ...page,
   name: "home",
   title: "Home",
-  type: "document",
   fields: [
-    defineField({
-      name: "title",
-      title: "Title",
-      type: "string",
-      readOnly: true,
-      initialValue: "Home",
-    }),
+    ...baseFields,
     defineField({
       name: "content",
       title: "Content",
       type: "array",
       of: [
         defineArrayMember({
-          type: "hero"
+          type: "hero",
         }),
         defineArrayMember({
-          type: "aboutSection"
+          type: "aboutSection",
         }),
         defineArrayMember({
-          type: "coachesSection"
+          type: "coachesSection",
         }),
         defineArrayMember({
-          type: "contactSection"
+          type: "contactSection",
         }),
-        ],
-    })
-  ]
-})
+      ],
+      group: "content",
+    }),
+  ],
+});
