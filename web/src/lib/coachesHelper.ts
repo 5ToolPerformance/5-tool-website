@@ -1,16 +1,16 @@
 import { sanityClient } from "sanity:client";
-import type { Image } from "./types";
+import type { ImageType } from "./types";
 
 export interface Coach {
   _id: string;
-  _type: 'coaches';
+  _type: "coaches";
   name: string;
   title: string;
   slug: {
-    _type: 'slug';
+    _type: "slug";
     current: string;
   };
-  image: Image;
+  image: ImageType;
   description: string;
 }
 
@@ -20,7 +20,7 @@ export interface Coach {
  */
 export async function getAllCoaches(): Promise<Coach[]> {
   try {
-    const query = `*[_type == "coaches"] | order(name asc) {
+    const query = `*[_type == "coach"] | order(name asc) {
       _id,
       _type,
       name,

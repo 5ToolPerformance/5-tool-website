@@ -8,7 +8,7 @@ import type { Coach } from "../../lib/types";
 
 export async function getStaticPaths() {
   const { data: coaches } = await loadQuery<SanityDocument[]>({
-    query: `*[_type == "coaches"]`,
+    query: `*[_type == "coach"]`,
   });
 
   return coaches.map(({ slug }) => {
@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 
 const { params } = Astro;
 const { data: coach } = await loadQuery<Coach>({
-  query: `*[_type == "coaches" && slug.current == $slug][0]`,
+  query: `*[_type == "coach" && slug.current == $slug][0]`,
   params,
 });
 
