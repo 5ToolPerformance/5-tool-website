@@ -6,3 +6,14 @@ export type ImageType = {
     _type: string;
   };
 };
+
+export type Coach = {
+  name: string;
+  title: string;
+  image: ImageType;
+  description: string;
+  slug: {
+    current: string;
+  };
+  expertise: string[];
+};
