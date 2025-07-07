@@ -12,7 +12,7 @@ const { title, email, phoneNumber, address } = Astro.props;
 const encodedAddress = encodeURIComponent(address);
 ---
 
-<section id="contact" class="py-16 bg-gray-50">
+<section id="contact" class="py-16 bg-gradient-to-b from-white to-gray-50">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-bold text-center mb-12">{title}</h2>
     
@@ -28,7 +28,7 @@ const encodedAddress = encodeURIComponent(address);
               id="name" 
               name="name" 
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-carolina-300 focus:border-carolina-300 transition-all duration-200 bg-white/50"
             >
           </div>
           
@@ -39,7 +39,7 @@ const encodedAddress = encodeURIComponent(address);
               id="email" 
               name="email" 
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-carolina-300 focus:border-carolina-300 transition-all duration-200 bg-white/50"
             >
           </div>
           
@@ -50,7 +50,7 @@ const encodedAddress = encodeURIComponent(address);
               id="subject" 
               name="subject" 
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-carolina-300 focus:border-carolina-300 transition-all duration-200 bg-white/50"
             >
           </div>
           
@@ -61,7 +61,7 @@ const encodedAddress = encodeURIComponent(address);
               name="message" 
               rows="4" 
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-carolina-300 focus:border-carolina-300 transition-all duration-200 bg-white/50"
             ></textarea>
           </div>
           
@@ -69,7 +69,7 @@ const encodedAddress = encodeURIComponent(address);
           <button 
             type="submit" 
             id="submitButton"
-            class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium"
+            class="w-full bg-gradient-to-r from-carolina-500 to-carolina-600 text-white py-3 px-6 rounded-lg hover:from-carolina-600 hover:to-carolina-700 transition-all duration-200 font-medium shadow-md hover:shadow-lg hover:-translate-y-0.5 transform"
           >
             Send Message
           </button>
@@ -79,7 +79,7 @@ const encodedAddress = encodeURIComponent(address);
       <!-- Map and Contact Info -->
       <div class="space-y-6">
         <!-- Map -->
-        <div class="h-64 bg-gray-200 rounded-lg overflow-hidden">
+        <div class="h-64 bg-gradient-to-br from-navy-50 to-carolina-50 rounded-xl overflow-hidden shadow-inner border border-gray-100">
           <iframe 
             width="100%" 
             height="100%" 
@@ -92,33 +92,54 @@ const encodedAddress = encodeURIComponent(address);
         </div>
         
         <!-- Contact Information -->
-        <div class="bg-white p-6 rounded-lg shadow-lg">
+        <div class="bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-lg border border-gray-100">
           <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
           <div class="space-y-3">
             <div class="flex items-start">
-              <svg class="h-6 w-6 text-blue-600 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg 
+                class="h-6 w-6 text-carolina-600 mr-3 mt-0.5 flex-shrink-0" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <a href={`mailto:${email}`} class="text-gray-700 hover:text-blue-600 transition-colors">
+              <a 
+                href={`mailto:${email}`} 
+                class="text-gray-700 hover:text-blue-600 transition-colors"
+              >
                 {email}
               </a>
             </div>
             
             <div class="flex items-start">
-              <svg class="h-6 w-6 text-blue-600 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg 
+                class="h-6 w-6 text-carolina-600 mr-3 mt-0.5 flex-shrink-0" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <a href={`tel:${phoneNumber.replace(/\D/g, '')}`} class="text-gray-700 hover:text-blue-600 transition-colors">
+              <a 
+                href={`tel:${phoneNumber.replace(/\D/g, '')}`} 
+                class="text-navy-700 hover:text-carolina-600 transition-colors duration-200"
+              >
                 {phoneNumber}
               </a>
             </div>
             
             <div class="flex items-start">
-              <svg class="h-6 w-6 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg 
+                class="h-6 w-6 text-carolina-600 mr-3 mt-0.5 flex-shrink-0" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span class="text-gray-700">
+              <span class="text-navy-700">
                 {address.split(',').map((line, i) => (
                   <span class="block">{line.trim()}</span>
                 ))}
@@ -130,6 +151,26 @@ const encodedAddress = encodeURIComponent(address);
     </div>
   </div>
 </section>
+
+<style>
+  .success-message {
+    background-color: #f0fdf4;
+    color: #166534;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #bbf7d0;
+  }
+  
+  .error-message {
+    background-color: #fef2f2;
+    color: #991b1b;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #fecaca;
+  }
+</style>
 
 <script>
   const form = document.getElementById('contactForm') as HTMLFormElement | null;

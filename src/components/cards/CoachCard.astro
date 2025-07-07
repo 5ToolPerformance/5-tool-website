@@ -1,11 +1,11 @@
 ---
-import type { Image } from '../../lib/types';
-import { urlForImage } from '../../lib/urlForImage';
+import type { ImageType } from "../../lib/types";
+import { urlForImage } from "../../lib/urlForImage";
 
 export interface Props {
   name: string;
   title: string;
-  image: Image;
+  image: ImageType;
   description: string;
   slug: {
     current: string;
@@ -14,52 +14,83 @@ export interface Props {
 }
 
 const { name, title, image, description, slug } = Astro.props;
-const imageUrl = image ? urlForImage(image).width(400).height(400).url() : '';
+const imageUrl = image ? urlForImage(image).width(400).height(400).url() : "";
 ---
 
-<div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group text-center pt-8 pb-6 px-6 h-full flex flex-col">
+<div
+  class="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group text-center pt-8 pb-6 px-6 h-full flex flex-col border border-gray-100 hover:border-carolina-100"
+>
   <div class="flex justify-center -mt-4 mb-4 flex-shrink-0">
     <div class="relative group">
-      <div class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-white shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-        {imageUrl ? (
-          <img 
-            src={imageUrl} 
-            alt={`${name} - ${title}`}
-            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-            width={112}
-            height={112}
-            loading="lazy"
-          />
-        ) : (
-          <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-            <span class="text-gray-400 text-2xl font-bold">{name.split(' ').map(n => n[0]).join('')}</span>
-          </div>
-        )}
+      <div
+        class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-carolina-50 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:border-carolina-100"
+      >
+        {
+          imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={`${name} - ${title}`}
+              class="w-full h-full object-cover group-hover:scale-110 transition-all duration-300"
+              width={112}
+              height={112}
+              loading="lazy"
+            />
+          ) : (
+            <div class="w-full h-full bg-gradient-to-br from-navy-50 to-carolina-50 flex items-center justify-center">
+              <span class="text-navy-300 text-2xl font-bold">
+                {name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")}
+              </span>
+            </div>
+          )
+        }
       </div>
-      <div class="absolute inset-0 rounded-full border-2 border-transparent group-hover:border-blue-400 transition-colors duration-300"></div>
+      <div
+        class="absolute inset-0 rounded-full border-2 border-transparent group-hover:border-carolina-300 transition-all duration-300"
+      >
+      </div>
     </div>
   </div>
-  
+
   <div class="flex flex-col flex-grow">
     <div class="mb-3 min-h-[4.5rem]">
-      <h3 class="text-xl font-bold text-gray-900 line-clamp-2 h-14 flex items-center justify-center">
+      <h3
+        class="text-xl font-bold text-navy-900 line-clamp-2 h-14 flex items-center justify-center group-hover:text-carolina-700 transition-colors duration-300"
+      >
         <span class="line-clamp-2">{name}</span>
       </h3>
-      <p class="text-sm font-medium text-blue-600 uppercase tracking-wide truncate">{title}</p>
+      <p
+        class="text-sm font-medium bg-gradient-to-r from-carolina-500 to-carolina-600 bg-clip-text text-transparent uppercase tracking-wide truncate"
+      >
+        {title}
+      </p>
     </div>
-    
-    <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3 flex-grow">
+
+    <p
+      class="text-navy-600 text-sm leading-relaxed mb-4 line-clamp-3 flex-grow"
+    >
       {description}
     </p>
-    
+
     <div class="mt-auto pt-2">
-      <a 
+      <a
         href={`/about/${slug.current}`}
-        class="inline-flex items-center justify-center w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        class="inline-flex items-center justify-center w-full px-4 py-2 bg-gradient-to-r from-carolina-500 to-carolina-600 hover:from-carolina-600 hover:to-carolina-700 text-white font-medium text-sm rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-carolina-300 focus:ring-offset-2 shadow-sm hover:shadow-md hover:-translate-y-0.5"
       >
         Learn More
-        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        <svg
+          class="ml-2 w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"></path>
         </svg>
       </a>
     </div>
@@ -78,5 +109,14 @@ const imageUrl = image ? urlForImage(image).width(400).height(400).url() : '';
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  /* Smooth transitions for all interactive elements */
+  * {
+    transition-property: color, background-color, border-color,
+      text-decoration-color, fill, stroke, opacity, box-shadow, transform,
+      filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
   }
 </style>

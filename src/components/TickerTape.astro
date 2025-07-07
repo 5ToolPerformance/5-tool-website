@@ -9,13 +9,13 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<div class="bg-blue-900 text-white py-2 overflow-hidden">
+<div class="bg-navy-500 text-white py-3 overflow-hidden">
   <div class="flex items-center whitespace-nowrap animate-marquee">
     {
       items.map((item) => (
-        <div class="inline-flex items-center mx-8" key={item._key}>
-          <span class="mr-2">•</span>
-          <span>{item.text}</span>
+        <div class="inline-flex items-center mx-12">
+          <span class="text-carolina-400 mr-3">•</span>
+          <span class="text-carolina-400 font-medium">{item.text}</span>
         </div>
       ))
     }
