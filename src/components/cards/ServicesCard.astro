@@ -1,0 +1,53 @@
+---
+import type { ImageType } from "../../lib/types";
+import { urlForImage } from "../../lib/urlForImage";
+
+interface Props {
+  image: ImageType;
+  title: string;
+  description: string;
+  slug: {
+    current: string;
+    _type: string;
+  };
+  price: string;
+}
+
+const { image, title, description, slug, price } = Astro.props;
+const imageUrl = image ? urlForImage(image).width(400).height(400).url() : "";
+---
+
+<article
+  class="flex flex-col w-full md:flex-row gap-6 p-6 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 border border-gray-100 max-w-4xl mx-auto"
+>
+  <!-- Image -->
+  <!-- Image -->
+  <div class="md:w-1/2 lg:w-2/5">
+    <img
+      src={imageUrl}
+      alt={title}
+      class="w-full h-64 object-cover rounded-lg"
+      loading="lazy"
+    />
+  </div>
+
+  <!-- Content -->
+  <div class="flex-1 flex flex-col">
+    <div class="flex-1">
+      <h3 class="text-2xl font-bold text-navy mb-4">{title}</h3>
+      <p class="text-gray-600 text-base leading-relaxed">{description}</p>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-gray-100">
+      <div class="flex flex-wrap justify-between items-center">
+        <span class="text-carolina text-xl font-semibold">{price}</span>
+        <a
+          href={`/services/${slug.current}`}
+          class="px-6 py-2.5 bg-navy text-white rounded-md hover:bg-opacity-90 transition-all duration-200 text-base font-medium hover:shadow-md"
+        >
+          Learn More
+        </a>
+      </div>
+    </div>
+  </div>
+</article>

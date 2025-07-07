@@ -5,6 +5,7 @@ import { urlForImage } from "../lib/urlForImage";
 import type { ImageType } from "../lib/types";
 import CoachCarousel from "../components/CoachCarousel.astro";
 import { getAllCoaches } from "../lib/coachesHelper";
+import ServicesCard from "../components/cards/ServicesCard.astro";
 
 type AboutPage = {
   title: string;
@@ -16,6 +17,17 @@ type AboutPage = {
   facilityImage: ImageType;
 };
 
+type Service = {
+  image: ImageType;
+  title: string;
+  description: string;
+  slug: {
+    current: string;
+    _type: string;
+  };
+  price: string;
+};
+
 const { data: aboutPage } = await loadQuery<AboutPage>({
   query: `*[_type == "aboutPage"][0]`,
 });
@@ -25,6 +37,12 @@ const bgImageUrl = aboutPage?.heroImage
   : "";
 
 const coaches = await getAllCoaches();
+
+const { data: services } = await loadQuery<Service[]>({
+  query: `*[_type == "services"]`,
+});
+
+console.log(services);
 ---
 
 <Layout title={`${aboutPage?.title || "About"} | 5 Tool Performance`}>
@@ -143,6 +161,20 @@ const coaches = await getAllCoaches();
         <!-- Coach Carousel -->
         <div class="relative max-w-6xl mx-auto">
           <CoachCarousel coaches={coaches} />
+        </div>
+      </div>
+    </section>
+    <!-- Services Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold sm:text-4xl mb-4">Our Services</h2>
+          <div class="h-1.5 w-20 bg-carolina mx-auto"></div>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
+          {services.map((service) => <ServicesCard {...service} />)}
         </div>
       </div>
     </section>

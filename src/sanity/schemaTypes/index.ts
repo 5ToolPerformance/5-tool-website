@@ -14,6 +14,7 @@ import { page } from "./page";
 import type { SchemaTypeDefinition } from "sanity";
 import { footer } from "./objects/footer";
 import { header } from "./objects/header";
+import { services } from "./objects/services";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -35,6 +36,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     resourceCard,
     footer,
     header,
+    services,
 
     // Document types
     coach,
