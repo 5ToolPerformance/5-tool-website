@@ -1,0 +1,211 @@
+import { defineType } from "sanity";
+
+export const footer = defineType({
+  name: "footer",
+  title: "Footer",
+  type: "document",
+  fields: [
+    {
+      name: "title",
+      title: "Footer Title",
+      type: "string",
+      description: "Internal reference name",
+    },
+    {
+      name: "companyInfo",
+      title: "Company Information",
+      type: "object",
+      fields: [
+        {
+          name: "name",
+          title: "Company Name",
+          type: "string",
+        },
+        {
+          name: "logo",
+          title: "Footer Logo",
+          type: "customImage",
+          options: {
+            hotspot: true,
+          },
+        },
+        {
+          name: "description",
+          title: "Company Description",
+          type: "text",
+          rows: 3,
+        },
+        {
+          name: "address",
+          title: "Address",
+          type: "text",
+          rows: 2,
+        },
+        {
+          name: "phone",
+          title: "Phone Number",
+          type: "string",
+        },
+        {
+          name: "email",
+          title: "Email",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "footerColumns",
+      title: "Footer Columns",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "title",
+              title: "Column Title",
+              type: "string",
+            },
+            {
+              name: "links",
+              title: "Links",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  fields: [
+                    {
+                      name: "label",
+                      title: "Link Label",
+                      type: "string",
+                    },
+                    {
+                      name: "url",
+                      title: "URL",
+                      type: "string",
+                      validation: (Rule) =>
+                        Rule.custom((url) => {
+                          if (!url) return "URL is required";
+                          if (url.startsWith("/")) return true;
+                          if (url.match(/^https?:\/\//)) return true;
+                          return "URL must be a valid external URL or internal path starting with /";
+                        }),
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "socialMedia",
+      title: "Social Media Links",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "platform",
+              title: "Platform",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Facebook", value: "facebook" },
+                  { title: "Twitter", value: "twitter" },
+                  { title: "Instagram", value: "instagram" },
+                  { title: "LinkedIn", value: "linkedin" },
+                  { title: "YouTube", value: "youtube" },
+                ],
+              },
+            },
+            {
+              name: "url",
+              title: "Profile URL",
+              type: "url",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "newsletter",
+      title: "Newsletter Signup",
+      type: "object",
+      fields: [
+        {
+          name: "enabled",
+          title: "Enable Newsletter Signup",
+          type: "boolean",
+          initialValue: false,
+        },
+        {
+          name: "title",
+          title: "Newsletter Title",
+          type: "string",
+        },
+        {
+          name: "description",
+          title: "Newsletter Description",
+          type: "text",
+          rows: 2,
+        },
+        {
+          name: "placeholder",
+          title: "Email Input Placeholder",
+          type: "string",
+          initialValue: "Enter your email address",
+        },
+        {
+          name: "buttonText",
+          title: "Submit Button Text",
+          type: "string",
+          initialValue: "Subscribe",
+        },
+      ],
+    },
+    {
+      name: "bottomBar",
+      title: "Bottom Bar",
+      type: "object",
+      fields: [
+        {
+          name: "copyrightText",
+          title: "Copyright Text",
+          type: "string",
+        },
+        {
+          name: "legalLinks",
+          title: "Legal Links",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                {
+                  name: "label",
+                  title: "Link Label",
+                  type: "string",
+                },
+                {
+                  name: "url",
+                  title: "URL",
+                  type: "string",
+                  validation: (Rule) =>
+                    Rule.custom((url) => {
+                      if (!url) return "URL is required";
+                      if (url.startsWith("/")) return true;
+                      if (url.match(/^https?:\/\//)) return true;
+                      return "URL must be a valid external URL or internal path starting with /";
+                    }),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+});

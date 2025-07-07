@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import type { ImageType } from "../../lib/types";
 import { urlForImage } from "../../lib/urlForImage";
 
@@ -27,7 +28,7 @@ const imageUrl = image ? urlForImage(image).width(400).height(400).url() : "";
       >
         {
           imageUrl ? (
-            <img
+            <Image
               src={imageUrl}
               alt={`${name} - ${title}`}
               class="w-full h-full object-cover group-hover:scale-110 transition-all duration-300"

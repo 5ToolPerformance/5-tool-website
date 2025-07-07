@@ -12,18 +12,20 @@ import { resourceCard } from "./objects/resourceCard";
 import { companyInfo } from "./companyInfo";
 import { page } from "./page";
 import type { SchemaTypeDefinition } from "sanity";
+import { footer } from "./objects/footer";
+import { header } from "./objects/header";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     // Base types
     page,
     customImage,
-    
+
     // Page types
     home,
     aboutPage,
     resources,
-    
+
     // Object types
     hero,
     callToAction,
@@ -31,7 +33,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     coachesSection,
     contactSection,
     resourceCard,
-    
+    footer,
+    header,
+
     // Document types
     coach,
     companyInfo,
