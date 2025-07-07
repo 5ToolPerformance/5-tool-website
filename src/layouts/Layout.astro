@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import TickerTape from "../components/TickerTape.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
 const tickerItems = [
@@ -26,6 +27,7 @@ const tickerItems = [
     <Header />
     <TickerTape items={tickerItems} />
     <slot />
+    <Footer />
   </body>
 </html>
 

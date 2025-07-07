@@ -1,0 +1,58 @@
+---
+import type { Image as SanityImage } from "sanity";
+import { urlForImage } from "../../lib/urlForImage";
+import { Image } from "astro:assets";
+
+interface Props {
+  title: string;
+  description: string;
+  image: SanityImage;
+  cta: {
+    buttonText: string;
+    buttonLink: string;
+  };
+}
+
+const { title, description, image, cta } = Astro.props;
+const imageUrl = image ? urlForImage(image).url() : "";
+---
+
+<article
+  class="relative bg-gradient-to-br from-white to-gray-50 rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group border border-gray-100"
+>
+  {
+    imageUrl && (
+      <div class="h-48 overflow-hidden relative">
+        <div class="absolute inset-0 bg-gradient-to-t from-white/0 via-white/10 to-white/30 z-10" />
+        <Image
+          src={imageUrl}
+          alt={title}
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          width={400}
+          height={200}
+          loading="lazy"
+        />
+      </div>
+    )
+  }
+  <div class="p-6 relative z-10">
+    <h3
+      class="text-xl font-bold text-navy-900 mb-2 group-hover:text-carolina transition-colors"
+    >
+      {title}
+    </h3>
+    <p class="text-gray-600 mb-6">{description}</p>
+    {
+      cta?.buttonLink && cta?.buttonText && (
+        <a
+          href={cta.buttonLink}
+          class="inline-block px-6 py-2.5 bg-gradient-to-r from-carolina-500 to-carolina-600 text-white font-medium rounded-lg hover:from-carolina-600 hover:to-carolina-700 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md hover:shadow-carolina/20"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {cta.buttonText}
+        </a>
+      )
+    }
+  </div>
+</article>

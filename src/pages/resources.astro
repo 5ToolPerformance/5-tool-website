@@ -1,7 +1,7 @@
 ---
 import { loadQuery } from "../lib/load-query";
 import { urlForImage } from "../lib/urlForImage";
-import ResourceCard from "../components/ResourceCard.astro";
+import ResourceCard from "../components/cards/ResourceCard.astro";
 import type { ImageType } from "../lib/types";
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
@@ -69,14 +69,8 @@ const bgImageUrl = resources?.heroImage
       {
         resources?.resourceCards?.length ? (
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {resources.resourceCards.map((card, index) => (
-              <ResourceCard
-                key={index}
-                title={card.title}
-                description={card.description}
-                image={card.image}
-                cta={card.cta}
-              />
+            {resources.resourceCards.map((card) => (
+              <ResourceCard {...card} />
             ))}
           </div>
         ) : (
