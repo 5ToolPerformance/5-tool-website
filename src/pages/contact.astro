@@ -131,18 +131,14 @@ const encodedAddress = encodeURIComponent(companyInfo?.address || "");
               Business Hours
             </h3>
             <ul class="space-y-2 text-gray-600">
-              <li class="flex justify-between">
-                <span>Monday - Friday</span>
-                <span>9:00 AM - 6:00 PM</span>
-              </li>
-              <li class="flex justify-between">
-                <span>Saturday</span>
-                <span>10:00 AM - 4:00 PM</span>
-              </li>
-              <li class="flex justify-between">
-                <span>Sunday</span>
-                <span>Closed</span>
-              </li>
+              {
+                companyInfo?.hours?.map((item) => (
+                  <li class="flex justify-between">
+                    <span>{item.day}</span>
+                    <span>{item.hours}</span>
+                  </li>
+                ))
+              }
             </ul>
           </div>
         </div>

@@ -53,6 +53,21 @@ export const companyInfo = defineType({
       group: "general",
     }),
     defineField({
+      name: "hours",
+      title: "Hours",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "day", type: "string" },
+            { name: "hours", type: "string" },
+          ],
+        },
+      ],
+      group: "general",
+    }),
+    defineField({
       name: "facebook",
       title: "Facebook",
       type: "url",

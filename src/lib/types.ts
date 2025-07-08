@@ -38,6 +38,10 @@ export type CompanyInfo = {
   address: string;
   phone: string;
   email: string;
+  hours: {
+    day: string;
+    hours: string;
+  }[];
 };
 
 export type TickerTapeType = {
