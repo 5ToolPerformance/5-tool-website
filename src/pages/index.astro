@@ -1,21 +1,41 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getHomePageData, getSection } from '../lib/homePageHelper';
-import Hero from '../components/homePageSections/Hero.astro';
-import AboutSection from '../components/homePageSections/AboutSection.astro';
-import CoachesSection from '../components/homePageSections/CoachesSection.astro';
-import ContactSection from '../components/homePageSections/ContactSection.astro';
+import Layout from "../layouts/Layout.astro";
+import { getHomePageData, getSection } from "../lib/homePageHelper";
+import Hero from "../components/homePageSections/Hero.astro";
+import AboutSection from "../components/homePageSections/AboutSection.astro";
+import CoachesSection from "../components/homePageSections/CoachesSection.astro";
+import ContactSection from "../components/homePageSections/ContactSection.astro";
+import ServicesCard from "../components/cards/ServicesCard.astro";
+import { loadQuery } from "../lib/load-query";
+import type { Service } from "../lib/types";
 
 const homePageData = await getHomePageData();
-const heroSection = getSection(homePageData.content, 'hero');
-const aboutSection = getSection(homePageData.content, 'aboutSection');
-const coachesSection = getSection(homePageData.content, 'coachesSection');
-const contactSection = getSection(homePageData.content, 'contactSection');
+const heroSection = getSection(homePageData.content, "hero");
+const aboutSection = getSection(homePageData.content, "aboutSection");
+const coachesSection = getSection(homePageData.content, "coachesSection");
+const contactSection = getSection(homePageData.content, "contactSection");
+
+const { data: services } = await loadQuery<Service[]>({
+  query: `*[_type == "services"]`,
+});
 ---
 
 <Layout>
   <Hero {...heroSection} />
   <AboutSection {...aboutSection} />
   {coachesSection && <CoachesSection {...coachesSection} />}
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold sm:text-4xl mb-4">Our Services</h2>
+        <div class="h-1.5 w-20 bg-carolina mx-auto"></div>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
+        {services.map((service) => <ServicesCard {...service} />)}
+      </div>
+    </div>
+  </section>
   {contactSection && <ContactSection {...contactSection} />}
 </Layout>

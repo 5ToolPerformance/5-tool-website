@@ -5,7 +5,7 @@ import { urlForImage } from "../../lib/urlForImage";
 interface Props {
   image: ImageType;
   title: string;
-  description: string;
+  shortDescription: string;
   slug: {
     current: string;
     _type: string;
@@ -13,7 +13,7 @@ interface Props {
   price: string;
 }
 
-const { image, title, description, slug, price } = Astro.props;
+const { image, title, shortDescription, slug, price } = Astro.props;
 const imageUrl = image ? urlForImage(image).width(400).height(400).url() : "";
 ---
 
@@ -35,7 +35,7 @@ const imageUrl = image ? urlForImage(image).width(400).height(400).url() : "";
   <div class="flex-1 flex flex-col">
     <div class="flex-1">
       <h3 class="text-2xl font-bold text-navy mb-4">{title}</h3>
-      <p class="text-gray-600 text-base leading-relaxed">{description}</p>
+      <p class="text-gray-600 text-base leading-relaxed">{shortDescription}</p>
     </div>
 
     <div class="mt-8 pt-6 border-t border-gray-100">

@@ -1,0 +1,22 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { loadQuery } from "../../lib/load-query";
+import type { Service } from "../../lib/types";
+
+const { data: services } = await loadQuery<Service[]>({
+  query: `*[_type == "services"]`,
+});
+---
+
+<Layout title="Services | 5 Tool Performance">
+  <h1>Services</h1>
+  {
+    services?.map((service) => (
+      <div>
+        <h2>{service.title}</h2>
+        <p>{service.description}</p>
+        <p>{service.price}</p>
+      </div>
+    ))
+  }
+</Layout>

@@ -43,6 +43,12 @@ export const services = defineType({
       group: "content",
     }),
     defineField({
+      name: "shortDescription",
+      title: "Short Description",
+      type: "text",
+      group: "content",
+    }),
+    defineField({
       name: "description",
       title: "Description",
       type: "text",

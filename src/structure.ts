@@ -7,6 +7,8 @@ import {
   CogIcon,
   UserIcon,
   DocumentIcon,
+  InsertAboveIcon,
+  InsertBelowIcon,
 } from "@sanity/icons";
 
 export const structure: StructureResolver = (S) =>
@@ -72,6 +74,26 @@ export const structure: StructureResolver = (S) =>
       // Add a divider
       S.divider(),
 
+      S.listItem()
+        .title("Header")
+        .icon(InsertBelowIcon)
+        .child(
+          S.document()
+            .schemaType("header")
+            .documentId("49b99048-6171-4b9b-b59c-8ea7ebda7b2f")
+        ),
+
+      S.listItem()
+        .title("Footer")
+        .icon(InsertAboveIcon)
+        .child(
+          S.document()
+            .schemaType("footer")
+            .documentId("e091d3f3-f20e-4891-aed9-7fe368c00243")
+        ),
+
+      S.divider(),
+
       // List out all other document types that aren't in the custom structure above
       ...S.documentTypeListItems().filter(
         (listItem) =>
@@ -82,6 +104,8 @@ export const structure: StructureResolver = (S) =>
             "resources",
             "companyInfo",
             "page",
+            "header",
+            "footer",
           ].includes(listItem.getId() || "")
       ),
     ]);

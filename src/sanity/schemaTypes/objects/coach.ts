@@ -9,7 +9,7 @@ export const coach = defineType({
       title: "name",
       subtitle: "title",
       media: "image",
-    }
+    },
   },
   fields: [
     defineField({
@@ -33,6 +33,11 @@ export const coach = defineType({
       type: "text",
     }),
     defineField({
+      name: "philosophy",
+      title: "Philosophy",
+      type: "text",
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
@@ -41,5 +46,5 @@ export const coach = defineType({
         maxLength: 96,
       },
     }),
-  ]
-})
+  ],
+});

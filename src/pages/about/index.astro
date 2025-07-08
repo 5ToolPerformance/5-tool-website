@@ -1,11 +1,13 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { loadQuery } from "../lib/load-query";
-import { urlForImage } from "../lib/urlForImage";
-import type { ImageType } from "../lib/types";
-import CoachCarousel from "../components/CoachCarousel.astro";
-import { getAllCoaches } from "../lib/coachesHelper";
-import ServicesCard from "../components/cards/ServicesCard.astro";
+import Layout from "../../layouts/Layout.astro";
+import { loadQuery } from "../../lib/load-query";
+import { urlForImage } from "../../lib/urlForImage";
+import type { ImageType } from "../../lib/types";
+import CoachCarousel from "../../components/CoachCarousel.astro";
+import { getAllCoaches } from "../../lib/coachesHelper";
+import ServicesCard from "../../components/cards/ServicesCard.astro";
+import type { Service } from "../../lib/types";
+import { Image } from "astro:assets";
 
 type AboutPage = {
   title: string;
@@ -15,17 +17,6 @@ type AboutPage = {
   companyImage: ImageType;
   facilityInfo: string;
   facilityImage: ImageType;
-};
-
-type Service = {
-  image: ImageType;
-  title: string;
-  description: string;
-  slug: {
-    current: string;
-    _type: string;
-  };
-  price: string;
 };
 
 const { data: aboutPage } = await loadQuery<AboutPage>({
@@ -41,8 +32,6 @@ const coaches = await getAllCoaches();
 const { data: services } = await loadQuery<Service[]>({
   query: `*[_type == "services"]`,
 });
-
-console.log(services);
 ---
 
 <Layout title={`${aboutPage?.title || "About"} | 5 Tool Performance`}>
@@ -96,11 +85,12 @@ console.log(services);
             {
               aboutPage?.companyImage && (
                 <div class="overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-xl">
-                  <img
+                  <Image
                     src={urlForImage(aboutPage.companyImage).url()}
                     alt={aboutPage.companyImage?.alt || "Company Image"}
                     class="h-full w-full object-cover"
                     loading="lazy"
+                    inferSize
                   />
                 </div>
               )
@@ -117,13 +107,14 @@ console.log(services);
           <div class="grid gap-12 md:grid-cols-2 md:items-center">
             {
               aboutPage?.facilityImage && (
-                <div class="order-1 md:order-2">
+                <div class="order-1">
                   <div class="overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-xl">
-                    <img
+                    <Image
                       src={urlForImage(aboutPage.facilityImage).url()}
                       alt={aboutPage.facilityImage?.alt || "Facility Image"}
                       class="h-full w-full object-cover"
                       loading="lazy"
+                      inferSize
                     />
                   </div>
                 </div>

@@ -17,3 +17,16 @@ export type Coach = {
   };
   expertise: string[];
 };
+
+export type Service = {
+  name: string;
+  title: string;
+  image: ImageType;
+  shortDescription: string;
+  description: string;
+  slug: {
+    current: string;
+    _type: string;
+  };
+  price: string;
+};
