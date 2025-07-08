@@ -15,6 +15,7 @@ import type { SchemaTypeDefinition } from "sanity";
 import { footer } from "./objects/footer";
 import { header } from "./objects/header";
 import { services } from "./objects/services";
+import { tickerTape } from "./objects/tickerTape";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -37,6 +38,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     footer,
     header,
     services,
+    tickerTape,
 
     // Document types
     coach,

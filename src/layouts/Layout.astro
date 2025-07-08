@@ -3,15 +3,12 @@ import Header from "../components/Header.astro";
 import TickerTape from "../components/TickerTape.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
+import { loadQuery } from "../lib/load-query";
+import type { TickerTapeType } from "../lib/types";
 
-const tickerItems = [
-  { _key: "1", text: "Latest News: Check out our new feature!" },
-  { _key: "2", text: "Special Offer: 20% off for new members" },
-  { _key: "3", text: "Upcoming Event: Join us next week" },
-  { _key: "4", text: "Latest News: Check out our new feature!" },
-  { _key: "5", text: "Special Offer: 20% off for new members" },
-  { _key: "6", text: "Upcoming Event: Join us next week" },
-];
+const { data: tickerItems } = await loadQuery<TickerTapeType>({
+  query: `*[_type == "tickerTape"][0]`,
+});
 ---
 
 <!doctype html>
@@ -25,7 +22,14 @@ const tickerItems = [
   </head>
   <body>
     <Header />
-    <TickerTape items={tickerItems} />
+    {
+      tickerItems.active && (
+        <TickerTape
+          title={tickerItems?.title}
+          items={tickerItems?.tickerTapeItems}
+        />
+      )
+    }
     <slot />
     <Footer />
   </body>

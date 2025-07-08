@@ -9,6 +9,7 @@ import {
   DocumentIcon,
   InsertAboveIcon,
   InsertBelowIcon,
+  BillIcon,
 } from "@sanity/icons";
 
 export const structure: StructureResolver = (S) =>
@@ -92,6 +93,11 @@ export const structure: StructureResolver = (S) =>
             .documentId("e091d3f3-f20e-4891-aed9-7fe368c00243")
         ),
 
+      S.listItem()
+        .title("Ticker Tape")
+        .icon(BillIcon)
+        .child(S.document().schemaType("tickerTape").documentId("tickerTape")),
+
       S.divider(),
 
       // List out all other document types that aren't in the custom structure above
@@ -106,6 +112,7 @@ export const structure: StructureResolver = (S) =>
             "page",
             "header",
             "footer",
+            "tickerTape",
           ].includes(listItem.getId() || "")
       ),
     ]);

@@ -1,21 +1,33 @@
 ---
 interface Props {
-  items: Array<{
-    _key: string;
-    text: string;
-  }>;
+  title: string;
+  items: string[];
 }
 
-const { items } = Astro.props;
+const { title, items } = Astro.props;
 ---
 
 <div class="bg-navy-500 text-white py-3 overflow-hidden">
   <div class="flex items-center whitespace-nowrap animate-marquee">
+    <div class="inline-flex items-center mx-12">
+      <span class="text-lg font-bold">{title}</span>
+    </div>
     {
       items.map((item) => (
-        <div class="inline-flex items-center mx-12">
-          <span class="text-carolina-400 mr-3">•</span>
-          <span class="text-carolina-400 font-medium">{item.text}</span>
+        <div class="inline-flex items-center">
+          <span class="text-carolina-400 mx-3">•</span>
+          <span class="text-carolina-400 font-medium">{item}</span>
+        </div>
+      ))
+    }
+    <div class="inline-flex items-center mx-12">
+      <span class="text-lg font-bold">{title}</span>
+    </div>
+    {
+      items.map((item) => (
+        <div class="inline-flex items-center">
+          <span class="text-carolina-400 mx-3">•</span>
+          <span class="text-carolina-400 font-medium">{item}</span>
         </div>
       ))
     }
@@ -25,7 +37,7 @@ const { items } = Astro.props;
 <style>
   @keyframes marquee {
     0% {
-      transform: translateX(0);
+      transform: translateX(50%);
     }
     100% {
       transform: translateX(-50%);
@@ -34,7 +46,7 @@ const { items } = Astro.props;
 
   .animate-marquee {
     display: inline-block;
-    animation: marquee 20s linear infinite;
+    animation: marquee 30s linear infinite;
     will-change: transform;
   }
 

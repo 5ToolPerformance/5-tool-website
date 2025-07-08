@@ -39,3 +39,10 @@ export type CompanyInfo = {
   phone: string;
   email: string;
 };
+
+export type TickerTapeType = {
+  active: boolean;
+  name: string;
+  title: string;
+  tickerTapeItems: string[];
+};
