@@ -74,10 +74,19 @@ const bgImageUrl = image ? urlForImage(image).url() : "";
 
   <!-- Scroll indicator -->
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce group">
-    <div class="h-10 w-6 rounded-full border-2 border-carolina-300/70 flex items-center justify-center">
-      <div class="h-3 w-0.5 bg-gradient-to-b from-carolina-300 to-carolina-100/50 rounded-full animate-scroll"></div>
+    <div
+      class="h-10 w-6 rounded-full border-2 border-carolina-300/70 flex items-center justify-center"
+    >
+      <div
+        class="h-3 w-0.5 bg-gradient-to-b from-carolina-300 to-carolina-100/50 rounded-full animate-scroll"
+      >
+      </div>
     </div>
-    <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs text-carolina-200/80 font-medium">Scroll</div>
+    <div
+      class="absolute -bottom-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs text-carolina-200/80 font-medium"
+    >
+      Scroll
+    </div>
   </div>
 
   <style>

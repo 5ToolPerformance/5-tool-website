@@ -30,3 +30,12 @@ export type Service = {
   };
   price: string;
 };
+
+export type CompanyInfo = {
+  name: string;
+  logo: ImageType;
+  description: string;
+  address: string;
+  phone: string;
+  email: string;
+};
