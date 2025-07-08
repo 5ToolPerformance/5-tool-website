@@ -12,6 +12,7 @@ export type Coach = {
   title: string;
   image: ImageType;
   description: string;
+  philosophy: string;
   slug: {
     current: string;
   };

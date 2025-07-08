@@ -38,6 +38,12 @@ export const coach = defineType({
       type: "text",
     }),
     defineField({
+      name: "expertise",
+      title: "Expertise",
+      type: "array",
+      of: [{ type: "string" }],
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
