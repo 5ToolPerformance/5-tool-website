@@ -20,7 +20,7 @@ export interface Coach {
  */
 export async function getAllCoaches(): Promise<Coach[]> {
   try {
-    const query = `*[_type == "coach"] | order(name asc) {
+    const query = `*[_type == "coach" && featured == true] | order(name asc) {
       _id,
       _type,
       name,

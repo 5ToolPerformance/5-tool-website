@@ -1,22 +1,98 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import { loadQuery } from "../../lib/load-query";
 import type { Service } from "../../lib/types";
+import { urlForImage } from "../../lib/urlForImage";
 
 const { data: services } = await loadQuery<Service[]>({
-  query: `*[_type == "services"]`,
+  query: `*[_type == "services"] | order(orderRank)`,
 });
 ---
 
 <Layout title="Services | 5 Tool Performance">
-  <h1>Services</h1>
-  {
-    services?.map((service) => (
-      <div>
-        <h2>{service.title}</h2>
-        <p>{service.description}</p>
-        <p>{service.price}</p>
+  <div class="bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center mb-16">
+        <h1
+          class="text-4xl font-bold text-navy-900 sm:text-5xl md:text-6xl mb-4"
+        >
+          Our Services
+        </h1>
+        <p class="max-w-2xl mx-auto text-lg text-navy-700">
+          Comprehensive baseball training programs designed to develop complete
+          players
+        </p>
       </div>
-    ))
-  }
+
+      <div class="space-y-24">
+        {
+          services?.map((service, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <div
+                class={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-12`}
+              >
+                <div class="w-full md:w-1/2">
+                  {service.image && (
+                    <Image
+                      src={urlForImage(service.image).url()}
+                      alt={service.image.alt || service.title}
+                      class="w-full h-auto rounded-lg shadow-xl"
+                      loading="lazy"
+                      inferSize
+                    />
+                  )}
+                </div>
+                <div class="w-full md:w-1/2">
+                  <h2 class="text-3xl font-bold text-navy-900 mb-4">
+                    {service.title}
+                  </h2>
+                  <p class="text-navy-600 mb-6 text-lg">
+                    {service.description}
+                  </p>
+                  <div class="mt-6">
+                    <a
+                      href={`/services/${service.slug.current}`}
+                      class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-carolina-600 hover:bg-carolina-700 transition-colors"
+                    >
+                      Learn More
+                      <svg
+                        class="ml-2 -mr-1 w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+
+      <div class="mt-24 text-center bg-navy-50 p-12 rounded-xl shadow-lg">
+        <h2 class="text-3xl font-bold text-navy-900 mb-6">
+          Ready to Get Started?
+        </h2>
+        <p class="text-lg text-navy-700 mb-8 max-w-3xl mx-auto">
+          Contact us today to schedule a session or learn more about our
+          training programs.
+        </p>
+        <a
+          href="/contact"
+          class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-navy-600 hover:bg-navy-700 transition-colors"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
 </Layout>

@@ -13,6 +13,11 @@ export const coach = defineType({
   },
   fields: [
     defineField({
+      name: "featured",
+      title: "Featured",
+      type: "boolean",
+    }),
+    defineField({
       name: "name",
       title: "Name",
       type: "string",
