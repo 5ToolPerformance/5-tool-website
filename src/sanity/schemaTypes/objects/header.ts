@@ -25,11 +25,6 @@ export const header = defineType({
           },
         },
         {
-          name: "alt",
-          title: "Alt Text",
-          type: "string",
-        },
-        {
           name: "url",
           title: "Logo Link URL",
           type: "string",
@@ -129,18 +124,6 @@ export const header = defineType({
               if (url.match(/^https?:\/\//)) return true;
               return "URL must be a valid external URL or internal path starting with /";
             }),
-        },
-        {
-          name: "style",
-          title: "Button Style",
-          type: "string",
-          options: {
-            list: [
-              { title: "Primary", value: "primary" },
-              { title: "Secondary", value: "secondary" },
-              { title: "Outline", value: "outline" },
-            ],
-          },
         },
       ],
     },

@@ -1,0 +1,145 @@
+---
+// src/components/SvgImage.astro
+import { Image } from "astro:assets";
+export interface Props {
+  src: string
+  alt?: string
+  class?: string
+  width?: number | string
+  height?: number | string
+  loading?: 'lazy' | 'eager'
+  cache?: boolean
+  removeFills?: boolean // New prop to control fill removal
+}
+
+const { 
+  src, 
+  alt = '', 
+  class: className = '', 
+  width = 'auto',
+  height = 'auto',
+  loading = 'lazy',
+  cache = true,
+  removeFills = true // Default to true for styling flexibility
+} = Astro.props
+
+// Simple in-memory cache
+const svgCache = new Map()
+
+let svgContent = ''
+let hasError = false
+
+try {
+  // Check cache first
+  if (cache && svgCache.has(src)) {
+    svgContent = svgCache.get(src)
+  } else {
+    const response = await fetch(src)
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch SVG: ${response.status}`)
+    }
+    
+    svgContent = await response.text()
+    
+    // Clean up SVG
+    svgContent = svgContent.replace(/<\?xml[^>]*\?>/, '')
+    svgContent = svgContent.replace(/<!DOCTYPE[^>]*>/, '')
+    
+    // Cache the cleaned result
+    if (cache) {
+      svgCache.set(src, svgContent)
+    }
+  }
+  
+  // Remove hardcoded fills if requested
+  if (removeFills) {
+    // Remove fill attributes from all elements
+    svgContent = svgContent.replace(/\s*fill="[^"]*"/g, '')
+    svgContent = svgContent.replace(/\s*fill='[^']*'/g, '')
+    
+    // Remove fill from style attributes
+    svgContent = svgContent.replace(/fill\s*:\s*[^;]+;?/g, '')
+    
+    // Clean up empty style attributes
+    svgContent = svgContent.replace(/\s*style=""\s*/g, '')
+    svgContent = svgContent.replace(/\s*style=''\s*/g, '')
+    
+    // Add currentColor to the main SVG element so it inherits text color
+    svgContent = svgContent.replace(
+      /<svg([^>]*)>/,
+      (match, attributes) => {
+        if (!attributes.includes('fill=')) {
+          return `<svg${attributes} fill="currentColor">`
+        }
+        return match
+      }
+    )
+  }
+  
+  // Apply classes and dimensions
+  if (className || width !== 'auto' || height !== 'auto') {
+    svgContent = svgContent.replace(
+      /<svg([^>]*)>/,
+      (match, attributes) => {
+        let newAttributes = attributes
+        
+        // Add custom class
+        if (className) {
+          if (attributes.includes('class=')) {
+            newAttributes = newAttributes.replace(/class="([^"]*)"/, `class="$1 ${className}"`)
+          } else {
+            newAttributes += ` class="${className}"`
+          }
+        }
+        
+        // Set dimensions
+        if (width !== 'auto') {
+          newAttributes = newAttributes.replace(/width="[^"]*"/, '') + ` width="${width}"`
+        }
+        if (height !== 'auto') {
+          newAttributes = newAttributes.replace(/height="[^"]*"/, '') + ` height="${height}"`
+        }
+        
+        return `<svg${newAttributes}>`
+      }
+    )
+  }
+  
+} catch (error) {
+  console.error('Error fetching SVG:', error)
+  hasError = true
+}
+---
+
+{hasError ? (
+  <!-- Fallback: Show regular img tag if SVG fetch fails -->
+  <Image 
+    src={src} 
+    alt={alt}
+    class={className}
+    loading={loading}
+    inferSize
+  />
+) : (
+  <!-- Render inline SVG -->
+  <div 
+    class="svg-wrapper"
+    role="img" 
+    aria-label={alt}
+    set:html={svgContent}
+  />
+)}
+
+<style>
+.svg-wrapper {
+  display: inline-block;
+  line-height: 0;
+}
+
+.svg-wrapper svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+</style>

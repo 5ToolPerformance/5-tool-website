@@ -51,3 +51,58 @@ export type TickerTapeType = {
   title: string;
   tickerTapeItems: string[];
 };
+
+export type HeaderType = {
+  name: string;
+  logo: {
+    image: ImageType;
+    url: string;
+  };
+  navigation: {
+    label: string;
+    url: string;
+    openInNewTab: boolean;
+    submenu?: {
+      label: string;
+      url: string;
+    }[];
+  }[];
+  ctaButton: {
+    text: string;
+    url: string;
+  };
+};
+
+export type FooterType = {
+  name: string;
+  companyInfo: {
+    name: string;
+    logo: ImageType;
+    description: string;
+    address: string;
+    phone: string;
+    email: string;
+    hours: {
+      day: string;
+      hours: string;
+    }[];
+  };
+  footerColumns: {
+    title: string;
+    links: {
+      label: string;
+      url: string;
+    }[];
+  }[];
+  socialMedia: {
+    platform: string;
+    url: string;
+  }[];
+  bottomBar: {
+    copyrightText: string;
+    legalLinks: {
+      label: string;
+      url: string;
+    }[];
+  };
+};

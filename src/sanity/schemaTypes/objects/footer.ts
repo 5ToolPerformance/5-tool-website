@@ -131,42 +131,6 @@ export const footer = defineType({
       ],
     },
     {
-      name: "newsletter",
-      title: "Newsletter Signup",
-      type: "object",
-      fields: [
-        {
-          name: "enabled",
-          title: "Enable Newsletter Signup",
-          type: "boolean",
-          initialValue: false,
-        },
-        {
-          name: "title",
-          title: "Newsletter Title",
-          type: "string",
-        },
-        {
-          name: "description",
-          title: "Newsletter Description",
-          type: "text",
-          rows: 2,
-        },
-        {
-          name: "placeholder",
-          title: "Email Input Placeholder",
-          type: "string",
-          initialValue: "Enter your email address",
-        },
-        {
-          name: "buttonText",
-          title: "Submit Button Text",
-          type: "string",
-          initialValue: "Subscribe",
-        },
-      ],
-    },
-    {
       name: "bottomBar",
       title: "Bottom Bar",
       type: "object",

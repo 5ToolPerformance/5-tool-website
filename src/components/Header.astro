@@ -1,32 +1,42 @@
 ---
+import type { HeaderType } from "../lib/types";
+import { urlForImage } from "../lib/urlForImage";
+import SvgImage from "./SvgImage.astro";
+
 // Define Props interface
-export interface Props {
-  logo?: {
-    src: string;
-    alt: string;
-  };
-  siteName?: string;
-  navLinks?: Array<{
-    href: string;
-    text: string;
+export interface Props extends Partial<HeaderType> {}
+
+// Define navigation item type
+type NavigationItem = {
+  label: string;
+  url: string;
+  openInNewTab?: boolean;
+  submenu?: Array<{
+    label: string;
+    url: string;
   }>;
-}
+};
 
 // Set default props
 const {
+  name = "5 Tool Performance",
   logo,
-  siteName = "5 Tool Performance",
-  navLinks = [
-    { href: "/", text: "Home" },
-    { href: "/about", text: "About" },
-    { href: "/contact", text: "Contact" },
-    { href: "/resources", text: "Resources" },
-  ],
+  navigation = [
+    { label: "Home", url: "/", openInNewTab: false },
+    { label: "About", url: "/about", openInNewTab: false },
+    { label: "Contact", url: "/contact", openInNewTab: false },
+    { label: "Resources", url: "/resources", openInNewTab: false },
+  ] as NavigationItem[],
+  ctaButton = {
+    text: "Get Started",
+    url: "/contact",
+  },
 } = Astro.props;
 
 // Generate unique IDs for mobile menu elements
 const menuButtonId = "mobile-menu-button";
 const menuId = "mobile-menu";
+const logoUrl = logo?.image ? urlForImage(logo.image).url() : "";
 ---
 
 <header
@@ -38,28 +48,60 @@ const menuId = "mobile-menu";
       class="text-2xl font-bold text-navy-900 flex items-center hover:text-carolina-600 transition-colors"
     >
       {
-        logo ? (
-          <img src={logo.src} alt={logo.alt} class="h-10 w-auto" />
+        logo?.image ? (
+          <SvgImage
+            src={logoUrl}
+            alt="Logo"
+            class="w-10 h-10 fill-navy-900 hover:fill-carolina-600 transition-colors duration-200"
+          />
         ) : (
-          <span>{siteName}</span>
+          <span>{name}</span>
         )
       }
     </a>
 
     <nav class="hidden md:block">
-      <ul class="flex space-x-8">
+      <ul class="flex items-center space-x-8">
         {
-          navLinks.map((link) => (
-            <li>
+          (navigation || []).map((item: NavigationItem) => (
+            <li class="relative group">
               <a
-                href={link.href}
-                class="text-navy-700 hover:text-carolina-600 font-medium transition-colors px-3 py-2 rounded-md"
+                href={item.url}
+                target={item.openInNewTab ? "_blank" : "_self"}
+                rel={item.openInNewTab ? "noopener noreferrer" : undefined}
+                class="text-navy-700 hover:text-carolina-600 font-medium transition-colors px-3 py-2 rounded-md flex items-center"
               >
-                {link.text}
+                {item.label}
+                {item.submenu && item.submenu.length > 0 && (
+                  <svg
+                    class="w-4 h-4 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                )}
               </a>
             </li>
           ))
         }
+        <!-- CTA Button -->
+        <li>
+          <a
+            href={ctaButton.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ml-4 px-4 py-2 bg-carolina-600 text-white font-medium rounded-md hover:bg-carolina-700 transition-colors flex items-center"
+          >
+            {ctaButton.text}
+          </a>
+        </li>
       </ul>
     </nav>
 
@@ -107,15 +149,40 @@ const menuId = "mobile-menu";
   <div id={menuId} class="md:hidden hidden">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       {
-        navLinks.map((link) => (
-          <a
-            href={link.href}
-            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-          >
-            {link.text}
-          </a>
+        (navigation || []).map((item: NavigationItem) => (
+          <div class="space-y-1">
+            <a
+              href={item.url}
+              target={item.openInNewTab ? "_blank" : "_self"}
+              rel={item.openInNewTab ? "noopener noreferrer" : undefined}
+              class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+            >
+              {item.label}
+            </a>
+            {item.submenu && item.submenu.length > 0 && (
+              <div class="pl-4 space-y-1">
+                {item.submenu.map((subItem) => (
+                  <a
+                    href={subItem.url}
+                    class="block px-3 py-2 rounded-md text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                  >
+                    {subItem.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
         ))
       }
+      <!-- Mobile CTA Button -->
+      <div class="px-3 py-2">
+        <a
+          href={ctaButton.url}
+          class="block w-full text-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-carolina-600 hover:bg-carolina-700"
+        >
+          {ctaButton.text}
+        </a>
+      </div>
     </div>
   </div>
 </header>
