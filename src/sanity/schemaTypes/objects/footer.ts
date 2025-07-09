@@ -54,46 +54,29 @@ export const footer = defineType({
       ],
     },
     {
-      name: "footerColumns",
-      title: "Footer Columns",
+      name: "footerLinks",
+      title: "Footer Links",
       type: "array",
       of: [
         {
           type: "object",
           fields: [
             {
-              name: "title",
-              title: "Column Title",
+              name: "label",
+              title: "Link Label",
               type: "string",
             },
             {
-              name: "links",
-              title: "Links",
-              type: "array",
-              of: [
-                {
-                  type: "object",
-                  fields: [
-                    {
-                      name: "label",
-                      title: "Link Label",
-                      type: "string",
-                    },
-                    {
-                      name: "url",
-                      title: "URL",
-                      type: "string",
-                      validation: (Rule) =>
-                        Rule.custom((url) => {
-                          if (!url) return "URL is required";
-                          if (url.startsWith("/")) return true;
-                          if (url.match(/^https?:\/\//)) return true;
-                          return "URL must be a valid external URL or internal path starting with /";
-                        }),
-                    },
-                  ],
-                },
-              ],
+              name: "url",
+              title: "URL",
+              type: "string",
+              validation: (Rule) =>
+                Rule.custom((url) => {
+                  if (!url) return "URL is required";
+                  if (url.startsWith("/")) return true;
+                  if (url.match(/^https?:\/\//)) return true;
+                  return "URL must be a valid external URL or internal path starting with /";
+                }),
             },
           ],
         },
@@ -125,6 +108,7 @@ export const footer = defineType({
               name: "url",
               title: "Profile URL",
               type: "url",
+              validation: (Rule) => Rule.required(),
             },
           ],
         },

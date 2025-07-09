@@ -4,7 +4,12 @@ import TickerTape from "../components/TickerTape.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 import { loadQuery } from "../lib/load-query";
-import type { TickerTapeType, HeaderType } from "../lib/types";
+import type {
+  TickerTapeType,
+  HeaderType,
+  FooterType,
+  ServicesType,
+} from "../lib/types";
 
 const { data: tickerItems } = await loadQuery<TickerTapeType>({
   query: `*[_type == "tickerTape"][0]`,
@@ -12,6 +17,14 @@ const { data: tickerItems } = await loadQuery<TickerTapeType>({
 
 const { data: headerItems } = await loadQuery<HeaderType>({
   query: `*[_type == "header"][0]`,
+});
+
+const { data: footerItems } = await loadQuery<FooterType>({
+  query: `*[_type == "footer"][0]`,
+});
+
+const { data: servicesItems } = await loadQuery<ServicesType[]>({
+  query: `*[_type == "services"]{ name, slug }`,
 });
 ---
 
@@ -35,7 +48,7 @@ const { data: headerItems } = await loadQuery<HeaderType>({
       )
     }
     <slot />
-    <Footer />
+    <Footer {...footerItems} servicesColumn={servicesItems} />
   </body>
 </html>
 

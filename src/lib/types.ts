@@ -73,6 +73,14 @@ export type HeaderType = {
   };
 };
 
+export type ServicesType = {
+  name: string;
+  slug: {
+    current: string;
+    _type: string;
+  };
+};
+
 export type FooterType = {
   name: string;
   companyInfo: {
@@ -87,12 +95,16 @@ export type FooterType = {
       hours: string;
     }[];
   };
-  footerColumns: {
-    title: string;
-    links: {
-      label: string;
-      url: string;
-    }[];
+  footerLinks: {
+    label: string;
+    url: string;
+  }[];
+  servicesColumn: {
+    name: string;
+    slug: {
+      current: string;
+      _type: string;
+    };
   }[];
   socialMedia: {
     platform: string;
