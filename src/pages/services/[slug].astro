@@ -6,6 +6,7 @@ import { urlForImage } from "../../lib/urlForImage";
 import Layout from "../../layouts/Layout.astro";
 import type { Service } from "../../lib/types";
 import { Image } from "astro:assets";
+export const prerender = true;
 
 // Fetch all services for static paths
 export async function getStaticPaths() {

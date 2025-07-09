@@ -5,6 +5,7 @@ import { loadQuery } from "../../lib/load-query";
 import { urlForImage } from "../../lib/urlForImage";
 import Layout from "../../layouts/Layout.astro";
 import type { Coach } from "../../lib/types";
+export const prerender = true;
 
 export async function getStaticPaths() {
   const { data: coaches } = await loadQuery<SanityDocument[]>({
