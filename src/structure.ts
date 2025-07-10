@@ -48,6 +48,14 @@ export const structure: StructureResolver = (S) =>
                     .schemaType("resources")
                     .documentId("a8d11c53-8d23-4aa3-9f9d-619fc5d5dba3")
                 ),
+              S.listItem()
+                .title("Company Info")
+                .icon(DocumentIcon)
+                .child(
+                  S.document()
+                    .schemaType("companyInfoPage")
+                    .documentId("companyInfoPage")
+                ),
             ])
         ),
 
@@ -113,6 +121,7 @@ export const structure: StructureResolver = (S) =>
             "header",
             "footer",
             "tickerTape",
+            "companyInfoPage",
           ].includes(listItem.getId() || "")
       ),
     ]);

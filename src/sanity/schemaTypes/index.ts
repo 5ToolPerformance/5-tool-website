@@ -16,6 +16,7 @@ import { footer } from "./objects/footer";
 import { header } from "./objects/header";
 import { services } from "./objects/services";
 import { tickerTape } from "./objects/tickerTape";
+import { companyInfoPage } from "./pages/companyInfoPage";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -27,6 +28,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     home,
     aboutPage,
     resources,
+    companyInfoPage,
 
     // Object types
     hero,

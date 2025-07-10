@@ -1,3 +1,6 @@
+import type { PortableTextProps } from "astro-portabletext/types";
+import type { PortableTextBlock } from "sanity";
+
 export type ImageType = {
   _type: string;
   alt: string;
@@ -117,4 +120,10 @@ export type FooterType = {
       url: string;
     }[];
   };
+};
+
+export type CompanyInfoPageType = {
+  name: string;
+  title: string;
+  companyInfo: PortableTextBlock;
 };
