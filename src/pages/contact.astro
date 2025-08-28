@@ -8,6 +8,7 @@ const { data: companyInfo } = await loadQuery<CompanyInfo>({
 });
 
 const encodedAddress = encodeURIComponent(companyInfo?.address || "");
+const apiKey = import.meta.env.GOOGLE_MAPS_API_KEY;
 ---
 
 <Layout title="Contact | 5 Tool Performance">
@@ -154,7 +155,7 @@ const encodedAddress = encodeURIComponent(companyInfo?.address || "");
               width="100%"
               height="100%"
               referrerpolicy="no-referrer-when-downgrade"
-              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBf4NSKdh-foEZf4tyQJzVbxJywcbprdNs&q=${encodedAddress}`}
+              src={`https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodedAddress}`}
               allowfullscreen
             >
             </iframe>
