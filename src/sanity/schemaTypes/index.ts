@@ -17,6 +17,9 @@ import { header } from "./objects/header";
 import { services } from "./objects/services";
 import { tickerTape } from "./objects/tickerTape";
 import { companyInfoPage } from "./pages/companyInfoPage";
+import { playerDevelopment } from "./pages/playerDevelopment";
+import { pillar } from "./objects/pillar";
+import { technology } from "./objects/technologies";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -29,6 +32,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     aboutPage,
     resources,
     companyInfoPage,
+    playerDevelopment,
 
     // Object types
     hero,
@@ -41,6 +45,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     header,
     services,
     tickerTape,
+    pillar,
+    technology,
 
     // Document types
     coach,

@@ -23,6 +23,11 @@ const {
   logo,
   navigation = [
     { label: "Home", url: "/", openInNewTab: false },
+    {
+      label: "Player Development",
+      url: "/player-development",
+      openInNewTab: false,
+    },
     { label: "About", url: "/about", openInNewTab: false },
     { label: "Contact", url: "/contact", openInNewTab: false },
     { label: "Resources", url: "/resources", openInNewTab: false },
@@ -46,6 +51,7 @@ const logoUrl = logo?.image ? urlForImage(logo.image).url() : "";
     <a
       href="/"
       class="text-2xl font-bold text-navy-900 flex items-center hover:text-carolina-600 transition-colors"
+      aria-label="Home"
     >
       {
         logo?.image ? (

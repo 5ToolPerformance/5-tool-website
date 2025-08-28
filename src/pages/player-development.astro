@@ -1,0 +1,175 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { loadQuery } from "../lib/load-query";
+import { Image } from "astro:assets";
+import type { PlayerDevelopmentType } from "../lib/types";
+import { urlForImage } from "../lib/urlForImage";
+
+const { data: playerDevelopment } = await loadQuery<PlayerDevelopmentType>({
+  query: `*[_type == "playerDevelopment"][0]`,
+});
+
+const bgImageUrl = playerDevelopment?.heroImage
+  ? urlForImage(playerDevelopment.heroImage).url()
+  : "";
+---
+
+<Layout title={playerDevelopment?.title}>
+  {/* Hero Section */}
+  <section class="relative">
+    <div
+      class="min-h-[20vh] sm:min-h-[30vh] lg:min-h-[40vh] flex items-center justify-center text-center"
+      style={`background-image: url('${bgImageUrl}'); background-size: cover; background-position: center;`}
+    >
+      <div class="absolute inset-0 bg-black/50"></div>
+      <div class="relative z-10 container mx-auto px-4 py-16">
+        <h1 class="text-4xl sm:text-5xl font-bold text-white">
+          {playerDevelopment?.title || "Player Development"}
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <div class="container mx-auto px-4 py-12 space-y-12">
+    {/* Our Mission */}
+    {
+      playerDevelopment?.ourMission && (
+        <section class="space-y-4 text-center max-w-3xl mx-auto">
+          <div class="space-y-2">
+            {playerDevelopment.ourMission.subtitle && (
+              <p class="text-sm uppercase tracking-wide italic text-gray-500">
+                {playerDevelopment.ourMission.subtitle}
+              </p>
+            )}
+            <h2 class="text-4xl font-bold">
+              {playerDevelopment.ourMission.title}
+            </h2>
+            <div class="h-1 w-16 bg-carolina mx-auto" />
+          </div>
+          {playerDevelopment.ourMission.description && (
+            <p class="text-gray-700 text-lg">
+              {playerDevelopment.ourMission.description}
+            </p>
+          )}
+        </section>
+      )
+    }
+  </div>
+
+  {/* Our Approach */}
+  {
+    playerDevelopment?.ourApproach && (
+      <section class="bg-navy-900 text-white py-16">
+        <div class="container mx-auto px-4">
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+            {/* Left image space (placeholder for future image) */}
+            <div class="hidden lg:flex lg:col-span-2 items-center justify-center">
+              <Image
+                src={urlForImage(playerDevelopment.ourApproach.image).url()}
+                alt="Player development approach"
+                class="w-full h-auto max-h-80 object-contain"
+                loading="lazy"
+                inferSize
+              />
+            </div>
+
+            {/* Right content (left-aligned) */}
+            <div class="lg:col-span-3 max-w-3xl lg:ml-auto mx-auto space-y-6">
+              <div class="space-y-2">
+                {playerDevelopment.ourApproach.subtitle && (
+                  <p class="text-sm uppercase tracking-wide italic text-white/70">
+                    {playerDevelopment.ourApproach.subtitle}
+                  </p>
+                )}
+                <h2 class="text-4xl font-bold">
+                  {playerDevelopment.ourApproach.title}
+                </h2>
+                <div class="h-1 w-16 bg-carolina" />
+                {playerDevelopment.ourApproach.description && (
+                  <p class="text-white/80 text-lg">
+                    {playerDevelopment.ourApproach.description}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {Array.isArray(playerDevelopment.ourApproach.pillars) &&
+            playerDevelopment.ourApproach.pillars.length > 0 && (
+              <div class="mt-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {playerDevelopment.ourApproach.pillars.map((pillar) => (
+                  <details class="group p-2">
+                    <summary class="font-semibold cursor-pointer list-none hover:text-carolina-200 focus:outline-none text-center">
+                      {pillar.title}
+                    </summary>
+                    {pillar.description && (
+                      <p class="text-white/80 mt-2 text-center">
+                        {pillar.description}
+                      </p>
+                    )}
+                  </details>
+                ))}
+              </div>
+            )}
+        </div>
+      </section>
+    )
+  }
+
+  <div class="container mx-auto px-4 py-12 space-y-12">
+    {/* Data Capture & Simulation Systems */}
+    {
+      playerDevelopment?.dataCapture && (
+        <section class="space-y-6">
+          <div class="text-center max-w-3xl mx-auto space-y-2">
+            {playerDevelopment.dataCapture.subtitle && (
+              <p class="text-sm uppercase tracking-wide italic text-gray-500">
+                {playerDevelopment.dataCapture.subtitle}
+              </p>
+            )}
+            <h2 class="text-4xl font-bold">
+              {playerDevelopment.dataCapture.title}
+            </h2>
+            <div class="h-1 w-16 bg-carolina mx-auto" />
+            {playerDevelopment.dataCapture.description && (
+              <p class="text-gray-700 text-lg">
+                {playerDevelopment.dataCapture.description}
+              </p>
+            )}
+          </div>
+
+          {Array.isArray(playerDevelopment.dataCapture.technologies) &&
+            playerDevelopment.dataCapture.technologies.length > 0 && (
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {playerDevelopment.dataCapture.technologies.map((tech) => (
+                  <div class="relative w-full h-44 sm:h-52 md:h-56 overflow-hidden">
+                    {tech.image && (
+                      <Image
+                        src={urlForImage(tech.image).url()}
+                        alt={tech.technology}
+                        class="absolute inset-0 w-full h-full object-cover grayscale"
+                        loading="lazy"
+                        inferSize
+                      />
+                    )}
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent">
+                      {tech.link && (
+                        <a
+                          href={tech.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="block w-full text-center px-4 py-2 bg-carolina text-white text-sm font-medium hover:bg-carolina-600"
+                        >
+                          Learn More
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+        </section>
+      )
+    }
+  </div>
+</Layout>

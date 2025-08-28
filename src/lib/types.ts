@@ -127,3 +127,37 @@ export type CompanyInfoPageType = {
   title: string;
   companyInfo: PortableTextBlock;
 };
+
+export type PlayerDevelopmentType = {
+  title: string;
+  slug: {
+    current: string;
+    _type: string;
+  };
+  heroImage: ImageType;
+  ourMission: {
+    title: string;
+    subtitle: string;
+    description: string;
+  };
+  ourApproach: {
+    title: string;
+    subtitle: string;
+    description: string;
+    image: ImageType;
+    pillars: {
+      title: string;
+      description: string;
+    }[];
+  };
+  dataCapture: {
+    title: string;
+    subtitle: string;
+    description: string;
+    technologies: {
+      technology: string;
+      link: string;
+      image?: ImageType;
+    }[];
+  };
+};
