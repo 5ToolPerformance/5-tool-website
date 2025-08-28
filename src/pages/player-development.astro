@@ -97,10 +97,13 @@ const bgImageUrl = playerDevelopment?.heroImage
           {Array.isArray(playerDevelopment.ourApproach.pillars) &&
             playerDevelopment.ourApproach.pillars.length > 0 && (
               <div class="mt-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {playerDevelopment.ourApproach.pillars.map((pillar) => (
+                {playerDevelopment.ourApproach.pillars.map((pillar, idx) => (
                   <details class="group p-2">
                     <summary class="font-semibold cursor-pointer list-none hover:text-carolina-200 focus:outline-none text-center">
-                      {pillar.title}
+                      <span class="block text-3xl font-bold text-carolina-500">
+                        {(idx + 1).toString().padStart(2, "0")}.
+                      </span>
+                      <span class="block">{pillar.title}</span>
                     </summary>
                     {pillar.description && (
                       <p class="text-white/80 mt-2 text-center">
