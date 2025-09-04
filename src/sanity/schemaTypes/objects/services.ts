@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 import { seoFields } from "../seoFields";
 
 export const services = defineType({
@@ -65,9 +65,14 @@ export const services = defineType({
       group: "content",
     }),
     defineField({
-      name: "price",
-      title: "Price",
-      type: "string",
+      name: "pricingInfo",
+      title: "Pricing Info",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "pricingInfo",
+        }),
+      ],
       group: "content",
     }),
 

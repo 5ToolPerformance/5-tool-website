@@ -4,7 +4,7 @@ import type { SanityDocument } from "@sanity/client";
 import { loadQuery } from "../../lib/load-query";
 import { urlForImage } from "../../lib/urlForImage";
 import Layout from "../../layouts/Layout.astro";
-import type { Service } from "../../lib/types";
+import type { ServicesType } from "../../lib/types";
 import { Image } from "astro:assets";
 export const prerender = true;
 
@@ -21,9 +21,7 @@ export async function getStaticPaths() {
 
 // Get the current service data
 const { params } = Astro;
-const { data: service } = await loadQuery<
-  Service & { description?: string; price?: string }
->({
+const { data: service } = await loadQuery<ServicesType>({
   query: `*[_type == "services" && slug.current == $slug][0]{
     ...
   }`,
@@ -89,13 +87,7 @@ const colors = {
                 </p>
               )
             }
-            {
-              service?.price && (
-                <div class="inline-block px-6 py-3 rounded-full font-bold text-white bg-gradient-to-br from-carolina-300 to-carolina-500">
-                  Starting at {service.price}
-                </div>
-              )
-            }
+            {/* Pricing can be shown below in a dedicated section */}
           </div>
         </div>
       </div>
@@ -115,6 +107,31 @@ const colors = {
           </div>
         )
       }
+
+      {/* Pricing Section */}
+      {service?.pricingInfo && service.pricingInfo.length > 0 && (
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-12 hover:shadow-xl transition-shadow duration-300">
+          <h2 class="text-3xl font-bold mb-6 text-navy border-b-2 border-carolina pb-2 inline-block">
+            Pricing Options
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {service.pricingInfo.map((item) => (
+              <div class="flex flex-col items-center justify-center text-center gap-3 p-6 rounded-md border border-gray-100 bg-gray-50">
+                <div>
+                  <p class="text-navy font-semibold">{item.title}</p>
+                  <p class="text-carolina text-lg font-bold mt-1">{item.price}</p>
+                </div>
+                <a
+                  href={item.link}
+                  class="inline-flex items-center justify-center px-4 py-2 bg-navy text-white rounded-md hover:bg-opacity-90 transition-all duration-200 text-sm font-medium hover:shadow-md text-center"
+                >
+                  Learn More
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* CTA Section */}
       <div class="text-center py-12">

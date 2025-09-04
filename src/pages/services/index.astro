@@ -2,10 +2,10 @@
 import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import { loadQuery } from "../../lib/load-query";
-import type { Service } from "../../lib/types";
+import type { ServicesType } from "../../lib/types";
 import { urlForImage } from "../../lib/urlForImage";
 
-const { data: services } = await loadQuery<Service[]>({
+const { data: services } = await loadQuery<ServicesType[]>({
   query: `*[_type == "services"] | order(orderRank)`,
 });
 ---
@@ -46,31 +46,40 @@ const { data: services } = await loadQuery<Service[]>({
                 </div>
                 <div class="w-full md:w-1/2">
                   <h2 class="text-3xl font-bold text-navy-900 mb-4">
-                    {service.title}
-                  </h2>
-                  <p class="text-navy-600 mb-6 text-lg">
-                    {service.description}
-                  </p>
-                  <div class="mt-6">
                     <a
                       href={`/services/${service.slug.current}`}
-                      class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-carolina-600 hover:bg-carolina-700 transition-colors"
+                      class="hover:text-carolina transition-colors"
                     >
-                      Learn More
-                      <svg
-                        class="ml-2 -mr-1 w-5 h-5"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
+                      {service.title}
                     </a>
-                  </div>
+                  </h2>
+                  <p class="text-navy-600 mb-6 text-lg">
+                    {service.shortDescription}
+                  </p>
+                  {service.pricingInfo && service.pricingInfo.length > 0 && (
+                    <div class="mt-8 pt-6 border-t border-gray-100">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {service.pricingInfo.map((item) => (
+                          <div class="flex flex-col items-center justify-center text-center gap-3 p-4 rounded-md border border-gray-100 bg-gray-50">
+                            <div>
+                              <p class="text-navy font-semibold">
+                                {item.title}
+                              </p>
+                              <p class="text-carolina text-lg font-bold mt-1">
+                                {item.price}
+                              </p>
+                            </div>
+                            <a
+                              href={item.link}
+                              class="inline-flex items-center justify-center px-4 py-2 bg-navy text-white rounded-md hover:bg-opacity-90 transition-all duration-200 text-sm font-medium hover:shadow-md hover:bg-carolina text-center"
+                            >
+                              Learn More
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             );

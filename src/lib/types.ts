@@ -78,10 +78,19 @@ export type HeaderType = {
 
 export type ServicesType = {
   name: string;
+  title: string;
+  image: ImageType;
+  shortDescription: string;
+  description: string;
   slug: {
     current: string;
     _type: string;
   };
+  pricingInfo: {
+    title: string;
+    price: string;
+    link: string;
+  }[];
 };
 
 export type FooterType = {

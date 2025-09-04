@@ -20,6 +20,7 @@ import { companyInfoPage } from "./pages/companyInfoPage";
 import { playerDevelopment } from "./pages/playerDevelopment";
 import { pillar } from "./objects/pillar";
 import { technology } from "./objects/technologies";
+import { pricingInfo } from "./objects/pricingInfo";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -47,6 +48,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     tickerTape,
     pillar,
     technology,
+    pricingInfo,
 
     // Document types
     coach,
