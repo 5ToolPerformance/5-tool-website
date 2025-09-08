@@ -1,4 +1,4 @@
-import type { PortableTextProps } from "astro-portabletext/types";
+import type { PortableTextProps, TypedObject } from "astro-portabletext/types";
 import type { PortableTextBlock } from "sanity";
 
 export type ImageType = {
@@ -81,7 +81,7 @@ export type ServicesType = {
   title: string;
   image: ImageType;
   shortDescription: string;
-  description: string;
+  description: TypedObject[];
   slug: {
     current: string;
     _type: string;

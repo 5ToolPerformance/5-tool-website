@@ -1,4 +1,15 @@
 @import "tailwindcss";
+@tailwind utilities;
+@layer components {
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    @apply font-bold;
+  }
+}
 @theme {
   --color-navy-50: #e6e6ff;
   --color-navy-100: #b3b3ff;

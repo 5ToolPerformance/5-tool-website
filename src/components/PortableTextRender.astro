@@ -1,0 +1,15 @@
+---
+import { PortableText } from "astro-portabletext";
+import type { TypedObject } from "astro-portabletext/types";
+
+interface Props {
+  content: TypedObject[];
+  class?: string;
+}
+
+const { content, class: className = "" } = Astro.props;
+---
+
+<div class={`prose max-w-none ${className}`}>
+  <PortableText value={content} />
+</div>

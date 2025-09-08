@@ -58,22 +58,18 @@ const { data: services } = await loadQuery<ServicesType[]>({
                   </p>
                   {service.pricingInfo && service.pricingInfo.length > 0 && (
                     <div class="mt-8 pt-6 border-t border-gray-100">
-                      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <div class="flex flex-col gap-3">
                         {service.pricingInfo.map((item) => (
-                          <div class="flex flex-col items-center justify-center text-center gap-3 p-4 rounded-md border border-gray-100 bg-gray-50">
-                            <div>
-                              <p class="text-navy font-semibold">
-                                {item.title}
-                              </p>
-                              <p class="text-carolina text-lg font-bold mt-1">
-                                {item.price}
-                              </p>
-                            </div>
+                          <div class="grid grid-cols-[1fr_auto_auto] items-center gap-4 p-4 rounded-md border border-gray-100 bg-gray-50">
+                            <p class="text-navy font-semibold">{item.title}</p>
+                            <p class="text-carolina text-lg font-bold w-32 text-center justify-self-center tabular-nums">
+                              {item.price}
+                            </p>
                             <a
                               href={item.link}
-                              class="inline-flex items-center justify-center px-4 py-2 bg-navy text-white rounded-md hover:bg-opacity-90 transition-all duration-200 text-sm font-medium hover:shadow-md hover:bg-carolina text-center"
+                              class="inline-flex items-center justify-center px-4 py-2 bg-navy text-white rounded-md hover:bg-opacity-90 transition-all duration-200 text-sm font-medium hover:shadow-md hover:bg-carolina text-center whitespace-nowrap justify-self-end"
                             >
-                              Learn More
+                              Book Now
                             </a>
                           </div>
                         ))}

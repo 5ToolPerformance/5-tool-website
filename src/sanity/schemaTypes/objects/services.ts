@@ -51,7 +51,12 @@ export const services = defineType({
     defineField({
       name: "description",
       title: "Description",
-      type: "text",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "block",
+        }),
+      ],
       group: "content",
     }),
     defineField({
