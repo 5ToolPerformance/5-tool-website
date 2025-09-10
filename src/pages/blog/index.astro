@@ -19,6 +19,7 @@ const { data: posts } = await loadQuery<
 });
 
 const { data: companyInfo } = await getCompanyInformation();
+console.log(companyInfo);
 
 // Helper to derive a short excerpt from the first portable text block
 function getExcerpt(blocks?: any[]): string {

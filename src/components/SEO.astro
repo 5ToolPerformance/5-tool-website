@@ -8,6 +8,9 @@ interface Props {
 }
 
 const { seo, siteUrl } = Astro.props;
+
+console.log(seo);
+
 const robotsDirectives = [
   seo?.robots?.noindex ? "noindex" : "index",
   seo?.robots?.nofollow ? "nofollow" : "follow",

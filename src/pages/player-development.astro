@@ -6,7 +6,36 @@ import type { PlayerDevelopmentType } from "../lib/types";
 import { urlForImage } from "../lib/urlForImage";
 
 const { data: playerDevelopment } = await loadQuery<PlayerDevelopmentType>({
-  query: `*[_type == "playerDevelopment"][0]`,
+  query: `*[_type == "playerDevelopment"][0]{
+    ...,
+    "content": {
+      _type,
+      _key,
+      ...
+    },
+    "seo": {
+      metaTitle,
+      metaDescription,
+      focusKeyword,
+      canonicalUrl,
+      openGraph{
+        title,
+        description,
+        "image": image.asset->url,
+        type
+      },
+      twitter{
+        title,
+        description,
+        "image": image.asset->url,
+        cardType
+      },
+      robots,
+      schemaMarkup,
+      seoAnalysis,
+      additionalMeta
+    }
+  }`,
 });
 
 const bgImageUrl = playerDevelopment?.heroImage

@@ -7,7 +7,7 @@ import CoachesSection from "../components/homePageSections/CoachesSection.astro"
 import ContactSection from "../components/homePageSections/ContactSection.astro";
 import ServicesCard from "../components/cards/ServicesCard.astro";
 import { loadQuery } from "../lib/load-query";
-import type { Service, ServicesType } from "../lib/types";
+import type { ServicesType } from "../lib/types";
 
 const homePageData = await getHomePageData();
 const heroSection = getSection(homePageData.content, "hero");

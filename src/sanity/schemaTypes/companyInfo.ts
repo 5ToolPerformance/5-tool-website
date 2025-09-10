@@ -85,7 +85,7 @@ export const companyInfo = defineType({
       group: "social",
     }),
     defineField({
-      name: "twitter",
+      name: "twitterLink",
       title: "Twitter",
       type: "url",
       group: "social",

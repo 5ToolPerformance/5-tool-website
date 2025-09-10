@@ -10,7 +10,36 @@ import { Image } from "astro:assets";
 import type { AboutPageType } from "../../lib/types";
 
 const { data: aboutPage } = await loadQuery<AboutPageType>({
-  query: `*[_type == "aboutPage"][0]`,
+  query: `*[_type == "aboutPage"][0]{
+    ...,
+    "content": {
+      _type,
+      _key,
+      ...
+    },
+    "seo": {
+      metaTitle,
+      metaDescription,
+      focusKeyword,
+      canonicalUrl,
+      openGraph{
+        title,
+        description,
+        "image": image.asset->url,
+        type
+      },
+      twitter{
+        title,
+        description,
+        "image": image.asset->url,
+        cardType
+      },
+      robots,
+      schemaMarkup,
+      seoAnalysis,
+      additionalMeta
+    }
+  }`,
 });
 
 const bgImageUrl = aboutPage?.heroImage

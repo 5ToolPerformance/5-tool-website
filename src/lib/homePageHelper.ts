@@ -25,6 +25,28 @@ export async function getHomePageData(): Promise<HomePageData> {
         _type,
         _key,
         ...
+      },
+      "seo": {
+        metaTitle,
+        metaDescription,
+        focusKeyword,
+        canonicalUrl,
+        openGraph{
+          title,
+          description,
+          "image": image.asset->url,
+          type
+        },
+        twitter{
+          title,
+          description,
+          "image": image.asset->url,
+          cardType
+        },
+        robots,
+        schemaMarkup,
+        seoAnalysis,
+        additionalMeta
       }
     }`;
 

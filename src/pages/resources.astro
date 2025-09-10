@@ -8,7 +8,36 @@ import { Image } from "astro:assets";
 import type { ResourcesType } from "../lib/types";
 
 const { data: resources } = await loadQuery<ResourcesType>({
-  query: `*[_type == "resources"][0]`,
+  query: `*[_type == "resources"][0]{
+    ...,
+    "content": {
+      _type,
+      _key,
+      ...
+    },
+    "seo": {
+      metaTitle,
+      metaDescription,
+      focusKeyword,
+      canonicalUrl,
+      openGraph{
+        title,
+        description,
+        "image": image.asset->url,
+        type
+      },
+      twitter{
+        title,
+        description,
+        "image": image.asset->url,
+        cardType
+      },
+      robots,
+      schemaMarkup,
+      seoAnalysis,
+      additionalMeta
+    }
+  }`,
 });
 
 const bgImageUrl = resources?.heroImage
