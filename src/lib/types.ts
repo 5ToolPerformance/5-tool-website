@@ -170,3 +170,14 @@ export type PlayerDevelopmentType = {
     }[];
   };
 };
+
+export type BlogPostType = {
+  title: string;
+  slug: {
+    current: string;
+    _type?: string;
+  };
+  image?: ImageType;
+  author?: string;
+  excerpt?: string;
+};

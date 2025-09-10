@@ -1,0 +1,82 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { loadQuery } from "../../lib/load-query";
+import { urlForImage } from "../../lib/urlForImage";
+import type { BlogPostType } from "../../lib/types";
+
+// Fetch all blog posts ordered by newest first
+const { data: posts } = await loadQuery<
+  Array<BlogPostType & { content?: any[] }>
+>({
+  query: `*[_type == "blogPost"] | order(_createdAt desc){
+    title,
+    slug,
+    image,
+    author,
+    content
+  }`,
+});
+
+// Helper to derive a short excerpt from the first portable text block
+function getExcerpt(blocks?: any[]): string {
+  if (!Array.isArray(blocks)) return "";
+  const firstBlock = blocks.find(
+    (b) => b?._type === "block" && Array.isArray(b.children)
+  );
+  if (!firstBlock) return "";
+  const text = firstBlock.children?.map((c: any) => c.text).join("") || "";
+  return text.length > 180 ? text.slice(0, 177) + "..." : text;
+}
+---
+
+<Layout title="Blog | 5 Tool Performance">
+  <div class="bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center mb-12">
+        <h1
+          class="text-4xl font-bold text-navy-900 sm:text-5xl md:text-6xl mb-4"
+        >
+          Blog
+        </h1>
+        <p class="max-w-2xl mx-auto text-lg text-navy-700">
+          Insights, training tips, and updates from 5 Tool Performance.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          posts?.map((post) => (
+            <a
+              href={`/blog/${post.slug?.current}`}
+              class="group block rounded-lg border border-gray-100 bg-white shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
+            >
+              {post.image && (
+                <img
+                  src={urlForImage(post.image)
+                    .width(800)
+                    .height(500)
+                    .fit("crop")
+                    .url()}
+                  alt={post.image?.alt || post.title}
+                  class="w-full h-56 object-cover"
+                  loading="lazy"
+                />
+              )}
+              <div class="p-6">
+                <h2 class="text-2xl font-bold text-navy-900 mb-2 group-hover:text-carolina transition-colors">
+                  {post.title}
+                </h2>
+                {post.author && (
+                  <p class="text-sm text-navy-600 mb-3">By {post.author}</p>
+                )}
+                <p class="text-navy-700">
+                  {post.excerpt || getExcerpt(post.content)}
+                </p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Layout>

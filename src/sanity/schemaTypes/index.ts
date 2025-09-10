@@ -21,6 +21,7 @@ import { playerDevelopment } from "./pages/playerDevelopment";
 import { pillar } from "./objects/pillar";
 import { technology } from "./objects/technologies";
 import { pricingInfo } from "./objects/pricingInfo";
+import { blogPost } from "./objects/blogPost";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -53,5 +54,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     // Document types
     coach,
     companyInfo,
+    blogPost,
   ],
 };
