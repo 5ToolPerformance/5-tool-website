@@ -10,6 +10,20 @@
     @apply font-bold text-navy;
   }
 
+  @layer components {
+    .prose ul {
+      @apply list-disc pl-6;
+    }
+
+    .prose ol {
+      @apply list-decimal pl-6;
+    }
+
+    .prose li {
+      @apply my-1;
+    }
+  }
+
   /* Heading scale and accents to match site-wide style */
   .prose h1 {
     @apply text-3xl md:text-4xl leading-tight;
