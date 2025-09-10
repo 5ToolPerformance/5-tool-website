@@ -5,23 +5,9 @@ import ResourceCard from "../components/cards/ResourceCard.astro";
 import type { ImageType } from "../lib/types";
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
+import type { ResourcesType } from "../lib/types";
 
-type Resources = {
-  title: string;
-  description: string;
-  heroImage: ImageType;
-  resourceCards: {
-    title: string;
-    description: string;
-    image: ImageType;
-    cta: {
-      buttonText: string;
-      buttonLink: string;
-    };
-  }[];
-};
-
-const { data: resources } = await loadQuery<Resources>({
+const { data: resources } = await loadQuery<ResourcesType>({
   query: `*[_type == "resources"][0]`,
 });
 
@@ -30,7 +16,7 @@ const bgImageUrl = resources?.heroImage
   : "";
 ---
 
-<Layout title={`${resources?.title || "Resources"} | 5 Tool Performance`}>
+<Layout seo={resources?.seo} siteUrl="https://www.5tool.com">
   <main>
     <!-- Hero Section -->
     <section class="relative bg-gray-900 text-white">

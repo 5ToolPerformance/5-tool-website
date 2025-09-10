@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { seoFields } from "../seoFields";
 
 export const blogPost = defineType({
   name: "blogPost",
@@ -35,5 +36,9 @@ export const blogPost = defineType({
       type: "array",
       of: [{ type: "block" }],
     }),
+    ...Object.entries(seoFields.fields).map(([name, field]) => ({
+      ...field,
+      group: "seo",
+    })),
   ],
 });

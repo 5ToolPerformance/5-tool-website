@@ -11,7 +11,7 @@ const encodedAddress = encodeURIComponent(companyInfo?.address || "");
 const apiKey = import.meta.env.GOOGLE_MAPS_API_KEY;
 ---
 
-<Layout title="Contact | 5 Tool Performance">
+<Layout seo={companyInfo?.seo} siteUrl="https://www.5tool.com">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="text-center mb-12">
       <h1 class="text-4xl font-bold text-navy-900 mb-4">Get In Touch</h1>

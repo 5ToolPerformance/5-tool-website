@@ -46,6 +46,7 @@ export type CompanyInfo = {
     day: string;
     hours: string;
   }[];
+  seo: SeoFields;
 };
 
 export type TickerTapeType = {
@@ -135,6 +136,23 @@ export type CompanyInfoPageType = {
   name: string;
   title: string;
   companyInfo: PortableTextBlock;
+  seo: SeoFields;
+};
+
+export type ResourcesType = {
+  title: string;
+  description: string;
+  heroImage: ImageType;
+  resourceCards: {
+    title: string;
+    description: string;
+    image: ImageType;
+    cta: {
+      buttonText: string;
+      buttonLink: string;
+    };
+  }[];
+  seo: SeoFields;
 };
 
 export type PlayerDevelopmentType = {
@@ -169,6 +187,7 @@ export type PlayerDevelopmentType = {
       image?: ImageType;
     }[];
   };
+  seo: SeoFields;
 };
 
 export type BlogPostType = {
@@ -180,4 +199,72 @@ export type BlogPostType = {
   image?: ImageType;
   author?: string;
   excerpt?: string;
+};
+
+export interface SeoFields {
+  metaTitle?: string;
+  metaDescription?: string;
+  focusKeyword?: string;
+  canonicalUrl?: string;
+
+  openGraph?: {
+    title?: string;
+    description?: string;
+    image?: string; // store resolved asset URL from Sanity
+    type?: "website" | "article" | "product" | "profile";
+  };
+
+  twitter?: {
+    title?: string;
+    description?: string;
+    image?: string; // store resolved asset URL from Sanity
+    cardType?: "summary" | "summary_large_image" | "app" | "player";
+  };
+
+  robots?: {
+    noindex?: boolean;
+    nofollow?: boolean;
+    noarchive?: boolean;
+    nosnippet?: boolean;
+  };
+
+  schemaMarkup?: {
+    type?:
+      | "Article"
+      | "Product"
+      | "FAQPage"
+      | "HowTo"
+      | "Organization"
+      | "Person"
+      | "LocalBusiness"
+      | "Event";
+  };
+
+  seoAnalysis?: {
+    readabilityScore?: number; // 0–100
+    seoScore?: number; // 0–100
+    keywordDensity?: number; // percentage
+  };
+
+  additionalMeta?: {
+    keywords?: string[];
+    publishedAt?: string; // ISO date string
+    lastModified?: string; // ISO date string
+  };
+}
+
+export type AboutPageType = {
+  title: string;
+  subtitle: string;
+  heroImage: ImageType;
+  companyInfo: string;
+  companyImage: ImageType;
+  facilityInfo: string;
+  facilityImage: ImageType;
+  seo: SeoFields;
+};
+
+export type FullBlogPost = BlogPostType & {
+  content?: TypedObject[];
+  seo: SeoFields;
 };

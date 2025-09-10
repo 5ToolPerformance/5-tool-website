@@ -4,13 +4,16 @@ import Layout from "../../layouts/Layout.astro";
 import { loadQuery } from "../../lib/load-query";
 import type { ServicesType } from "../../lib/types";
 import { urlForImage } from "../../lib/urlForImage";
+import { getCompanyInformation } from "../../lib/companyInformation";
+
+const { data: companyInfo } = await getCompanyInformation();
 
 const { data: services } = await loadQuery<ServicesType[]>({
   query: `*[_type == "services"] | order(orderRank)`,
 });
 ---
 
-<Layout title="Services | 5 Tool Performance">
+<Layout seo={companyInfo?.seo} siteUrl="https://www.5tool.com">
   <div class="bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div class="text-center mb-16">

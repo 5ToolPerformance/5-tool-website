@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import { loadQuery } from "../../lib/load-query";
 import { urlForImage } from "../../lib/urlForImage";
 import type { BlogPostType } from "../../lib/types";
+import { getCompanyInformation } from "../../lib/companyInformation";
 
 // Fetch all blog posts ordered by newest first
 const { data: posts } = await loadQuery<
@@ -17,6 +18,8 @@ const { data: posts } = await loadQuery<
   }`,
 });
 
+const { data: companyInfo } = await getCompanyInformation();
+
 // Helper to derive a short excerpt from the first portable text block
 function getExcerpt(blocks?: any[]): string {
   if (!Array.isArray(blocks)) return "";
@@ -29,7 +32,7 @@ function getExcerpt(blocks?: any[]): string {
 }
 ---
 
-<Layout title="Blog | 5 Tool Performance">
+<Layout seo={companyInfo?.seo} siteUrl="https://www.5tool.com">
   <div class="bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div class="text-center mb-12">

@@ -1,5 +1,5 @@
-import {sanityClient} from "sanity:client";
-
+import { sanityClient } from "sanity:client";
+import type { SeoFields } from "./types";
 
 // Type for the home page data
 export type HomePageData = {
@@ -9,6 +9,7 @@ export type HomePageData = {
     _key: string;
     [key: string]: any;
   }>;
+  seo: SeoFields;
 };
 
 /**
@@ -28,7 +29,7 @@ export async function getHomePageData(): Promise<HomePageData> {
     }`;
 
     const homePageData = await sanityClient.fetch<HomePageData>(query);
-    
+
     if (!homePageData) {
       throw new Error("Home page data not found");
     }
@@ -47,7 +48,7 @@ export async function getHomePageData(): Promise<HomePageData> {
  * @returns The section data or undefined if not found
  */
 export function getSection<T = any>(
-  content: HomePageData['content'],
+  content: HomePageData["content"],
   type: string
 ): T | undefined {
   return content.find((item) => item._type === type) as T | undefined;

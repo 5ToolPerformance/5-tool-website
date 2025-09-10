@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import { seoFields } from "./seoFields";
 
 export const companyInfo = defineType({
   name: "companyInfo",
@@ -13,6 +14,10 @@ export const companyInfo = defineType({
     {
       name: "social",
       title: "Social",
+    },
+    {
+      name: "seo",
+      title: "SEO",
     },
   ],
   fields: [
@@ -91,5 +96,10 @@ export const companyInfo = defineType({
       type: "url",
       group: "social",
     }),
+    // Add SEO fields with proper grouping
+    ...Object.entries(seoFields.fields).map(([name, field]) => ({
+      ...field,
+      group: "seo",
+    })),
   ],
 });

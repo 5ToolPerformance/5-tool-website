@@ -5,6 +5,7 @@ import { loadQuery } from "../../lib/load-query";
 import { urlForImage } from "../../lib/urlForImage";
 import Layout from "../../layouts/Layout.astro";
 import type { Coach } from "../../lib/types";
+import { getCompanyInformation } from "../../lib/companyInformation";
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -26,11 +27,12 @@ const { data: coach } = await loadQuery<Coach>({
   query: `*[_type == "coach" && slug.current == $slug][0]`,
   params,
 });
+const { data: companyInformation } = await getCompanyInformation();
 
 const imageUrl = coach?.image ? urlForImage(coach.image).url() : "";
 ---
 
-<Layout title={`${coach?.name || "Coach"} | 5 Tool Performance`}>
+<Layout seo={companyInformation?.seo} siteUrl="https://www.5tool.com">
   <div class="min-h-screen bg-gradient-to-b from-white to-carolina-50">
     {/* Hero Section */}
     <div

@@ -9,7 +9,9 @@ import type {
   HeaderType,
   FooterType,
   ServicesType,
+  SeoFields,
 } from "../lib/types";
+import SEO from "../components/SEO.astro";
 
 const { data: tickerItems } = await loadQuery<TickerTapeType>({
   query: `*[_type == "tickerTape"][0]`,
@@ -26,17 +28,18 @@ const { data: footerItems } = await loadQuery<FooterType>({
 const { data: servicesItems } = await loadQuery<ServicesType[]>({
   query: `*[_type == "services"]{ name, slug }`,
 });
+
+interface Props {
+  seo: SeoFields;
+  siteUrl: string;
+}
+
+const { seo, siteUrl } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>5 Tool Performance</title>
-  </head>
+  <SEO seo={seo} siteUrl={siteUrl} />
   <body>
     <Header {...headerItems} />
     {

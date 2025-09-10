@@ -7,6 +7,7 @@ import Layout from "../../layouts/Layout.astro";
 import type { ServicesType } from "../../lib/types";
 import { Image } from "astro:assets";
 import PortableTextRender from "../../components/PortableTextRender.astro";
+import { getCompanyInformation } from "../../lib/companyInformation";
 export const prerender = true;
 
 // Fetch all services for static paths
@@ -20,6 +21,8 @@ export async function getStaticPaths() {
   }));
 }
 
+const { data: companyInfo } = await getCompanyInformation();
+
 // Get the current service data
 const { params } = Astro;
 const { data: service } = await loadQuery<ServicesType>({
@@ -31,17 +34,9 @@ const { data: service } = await loadQuery<ServicesType>({
 
 // Generate image URL if available
 const imageUrl = service?.image ? urlForImage(service.image).url() : "";
-
-// Define color variables
-const colors = {
-  carolina: "#4B9CD3",
-  navy: "#002D62",
-  lightBg: "#F8FAFC",
-  subtleGradient: "linear-gradient(135deg, #F0F9FF 0%, #F8FAFC 100%)",
-};
 ---
 
-<Layout title={`${service?.name || "Service"} | 5 Tool Performance`}>
+<Layout seo={companyInfo?.seo} siteUrl="https://www.5tool.com">
   <main class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-[#F8FAFC]">
     <div class="max-w-7xl mx-auto">
       {/* Hero Section */}

@@ -7,7 +7,7 @@ import CoachesSection from "../components/homePageSections/CoachesSection.astro"
 import ContactSection from "../components/homePageSections/ContactSection.astro";
 import ServicesCard from "../components/cards/ServicesCard.astro";
 import { loadQuery } from "../lib/load-query";
-import type { Service } from "../lib/types";
+import type { Service, ServicesType } from "../lib/types";
 
 const homePageData = await getHomePageData();
 const heroSection = getSection(homePageData.content, "hero");
@@ -15,12 +15,12 @@ const aboutSection = getSection(homePageData.content, "aboutSection");
 const coachesSection = getSection(homePageData.content, "coachesSection");
 const contactSection = getSection(homePageData.content, "contactSection");
 
-const { data: services } = await loadQuery<Service[]>({
+const { data: services } = await loadQuery<ServicesType[]>({
   query: `*[_type == "services"]`,
 });
 ---
 
-<Layout>
+<Layout seo={homePageData.seo} siteUrl="https://www.5tool.com">
   <Hero {...heroSection} />
   <AboutSection {...aboutSection} />
   {coachesSection && <CoachesSection {...coachesSection} />}

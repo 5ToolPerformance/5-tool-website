@@ -2,24 +2,14 @@
 import Layout from "../../layouts/Layout.astro";
 import { loadQuery } from "../../lib/load-query";
 import { urlForImage } from "../../lib/urlForImage";
-import type { ImageType } from "../../lib/types";
 import CoachCarousel from "../../components/CoachCarousel.astro";
 import { getAllCoaches } from "../../lib/coachesHelper";
 import ServicesCard from "../../components/cards/ServicesCard.astro";
-import type { Service } from "../../lib/types";
+import type { ServicesType } from "../../lib/types";
 import { Image } from "astro:assets";
+import type { AboutPageType } from "../../lib/types";
 
-type AboutPage = {
-  title: string;
-  subtitle: string;
-  heroImage: ImageType;
-  companyInfo: string;
-  companyImage: ImageType;
-  facilityInfo: string;
-  facilityImage: ImageType;
-};
-
-const { data: aboutPage } = await loadQuery<AboutPage>({
+const { data: aboutPage } = await loadQuery<AboutPageType>({
   query: `*[_type == "aboutPage"][0]`,
 });
 
@@ -29,12 +19,12 @@ const bgImageUrl = aboutPage?.heroImage
 
 const coaches = await getAllCoaches();
 
-const { data: services } = await loadQuery<Service[]>({
+const { data: services } = await loadQuery<ServicesType[]>({
   query: `*[_type == "services"]`,
 });
 ---
 
-<Layout title={`${aboutPage?.title || "About"} | 5 Tool Performance`}>
+<Layout seo={aboutPage?.seo} siteUrl="https://www.5tool.com">
   <!-- Hero Section -->
   <section
     class="relative flex min-h-[40vh] items-center bg-cover bg-fixed bg-center bg-no-repeat px-4 py-16 text-white"

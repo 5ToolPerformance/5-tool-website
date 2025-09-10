@@ -1,0 +1,75 @@
+---
+import type { SeoFields } from '../lib/types';
+
+
+interface Props {
+  seo?: SeoFields;
+  siteUrl: string;
+}
+
+const { seo, siteUrl } = Astro.props;
+const robotsDirectives = [
+  seo?.robots?.noindex ? "noindex" : "index",
+  seo?.robots?.nofollow ? "nofollow" : "follow",
+  seo?.robots?.noarchive ? "noarchive" : null,
+  seo?.robots?.nosnippet ? "nosnippet" : null,
+].filter(Boolean).join(", ");
+
+const keywords = seo?.additionalMeta?.keywords ?? [];
+const keywordCount = keywords.length;
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+  <!-- Basic Meta -->
+  <title>{seo?.metaTitle || "Default Site Title"}</title>
+  <meta name="description" content={seo?.metaDescription || "Default site description"} />
+
+  <!-- Canonical -->
+  {seo?.canonicalUrl && <link rel="canonical" href={seo.canonicalUrl} />}
+
+  <!-- Robots -->
+  {robotsDirectives && <meta name="robots" content={robotsDirectives} />}
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={seo?.openGraph?.title || seo?.metaTitle} />
+  <meta property="og:description" content={seo?.openGraph?.description || seo?.metaDescription} />
+  {seo?.openGraph?.image && <meta property="og:image" content={seo.openGraph.image} />}
+  <meta property="og:type" content={seo?.openGraph?.type || "website"} />
+  <meta property="og:url" content={seo?.canonicalUrl || siteUrl} />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content={seo?.twitter?.cardType || "summary_large_image"} />
+  <meta name="twitter:title" content={seo?.twitter?.title || seo?.metaTitle} />
+  <meta name="twitter:description" content={seo?.twitter?.description || seo?.metaDescription} />
+  {seo?.twitter?.image && <meta name="twitter:image" content={seo.twitter.image} />}
+
+  <!-- Keywords (less relevant for modern SEO but included) -->
+  {keywordCount > 0 && (
+    <meta name="keywords" content={keywords.join(", ")} />
+  )}
+
+  <!-- Dates -->
+  {seo?.additionalMeta?.publishedAt && (
+    <meta name="article:published_time" content={seo.additionalMeta.publishedAt} />
+  )}
+  {seo?.additionalMeta?.lastModified && (
+    <meta name="article:modified_time" content={seo.additionalMeta.lastModified} />
+  )}
+
+  <!-- Schema.org JSON-LD -->
+  {seo?.schemaMarkup?.type && (
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": seo.schemaMarkup.type,
+        name: seo.metaTitle,
+        description: seo.metaDescription,
+        url: seo.canonicalUrl || siteUrl,
+      })}
+    </script>
+  )}
+</head>
