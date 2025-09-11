@@ -59,26 +59,23 @@ const bgImageUrl = playerDevelopment?.heroImage
     </div>
   </section>
 
-  <div class="container mx-auto px-4 py-12 space-y-12">
+  <div class="container py-12 space-y-12 bg-carolina text-navy max-w-full">
     {/* Our Mission */}
     {
       playerDevelopment?.ourMission && (
         <section class="space-y-4 text-center max-w-3xl mx-auto">
           <div class="space-y-2">
             {playerDevelopment.ourMission.subtitle && (
-              <p class="text-sm uppercase tracking-wide italic text-gray-500">
+              <p class="text-sm uppercase tracking-wide italic">
                 {playerDevelopment.ourMission.subtitle}
               </p>
             )}
             <h2 class="text-4xl font-bold">
               {playerDevelopment.ourMission.title}
             </h2>
-            <div class="h-1 w-16 bg-carolina mx-auto" />
           </div>
           {playerDevelopment.ourMission.description && (
-            <p class="text-gray-700 text-lg">
-              {playerDevelopment.ourMission.description}
-            </p>
+            <p class="text-lg">{playerDevelopment.ourMission.description}</p>
           )}
         </section>
       )
@@ -88,7 +85,7 @@ const bgImageUrl = playerDevelopment?.heroImage
   {/* Our Approach */}
   {
     playerDevelopment?.ourApproach && (
-      <section class="bg-navy-900 text-white py-16">
+      <section class="bg-navy-800 text-white py-16">
         <div class="container mx-auto px-4">
           <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
             {/* Left image space (placeholder for future image) */}
@@ -148,14 +145,14 @@ const bgImageUrl = playerDevelopment?.heroImage
     )
   }
 
-  <div class="container mx-auto px-4 py-12 space-y-12">
+  <div class="container max-w-full bg-carolina text-navy px-4 py-12 space-y-12">
     {/* Data Capture & Simulation Systems */}
     {
       playerDevelopment?.dataCapture && (
         <section class="space-y-6">
           <div class="text-center max-w-3xl mx-auto space-y-2">
             {playerDevelopment.dataCapture.subtitle && (
-              <p class="text-sm uppercase tracking-wide italic text-gray-500">
+              <p class="text-sm uppercase tracking-wide italic">
                 {playerDevelopment.dataCapture.subtitle}
               </p>
             )}
@@ -190,7 +187,7 @@ const bgImageUrl = playerDevelopment?.heroImage
                           href={tech.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="block w-full text-center px-4 py-2 bg-carolina text-white text-sm font-medium hover:bg-carolina-600"
+                          class="block w-full text-center px-4 py-2 bg-navy text-white text-sm font-medium hover:bg-carolina-600"
                         >
                           Learn More
                         </a>
