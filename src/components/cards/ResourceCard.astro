@@ -1,12 +1,12 @@
 ---
-import type { Image as SanityImage } from "sanity";
+import type { ImageType } from "../../lib/types";
 import { urlForImage } from "../../lib/urlForImage";
 import { Image } from "astro:assets";
 
 interface Props {
   title: string;
   description: string;
-  image: SanityImage;
+  image: ImageType;
   cta: {
     buttonText: string;
     buttonLink: string;
