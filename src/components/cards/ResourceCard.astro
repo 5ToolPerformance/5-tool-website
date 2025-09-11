@@ -18,16 +18,15 @@ const imageUrl = image ? urlForImage(image).url() : "";
 ---
 
 <article
-  class="relative bg-gradient-to-br from-white to-gray-50 rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group border border-gray-100"
+  class="relative bg-transparent rounded-none overflow-hidden group border border-white"
 >
   {
     imageUrl && (
-      <div class="h-48 overflow-hidden relative">
-        <div class="absolute inset-0 bg-gradient-to-t from-white/0 via-white/10 to-white/30 z-10" />
+      <div class="h-48 overflow-hidden">
         <Image
           src={imageUrl}
           alt={title}
-          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          class="w-full h-full object-cover"
           width={400}
           height={200}
           loading="lazy"
@@ -35,18 +34,18 @@ const imageUrl = image ? urlForImage(image).url() : "";
       </div>
     )
   }
-  <div class="p-6 relative z-10">
+  <div class="p-6">
     <h3
-      class="text-xl font-bold text-navy-900 mb-2 group-hover:text-carolina transition-colors"
+      class="text-xl font-bold text-white mb-2 hover:text-carolina transition-colors"
     >
       {title}
     </h3>
-    <p class="text-gray-600 mb-6">{description}</p>
+    <p class="text-white mb-6">{description}</p>
     {
       cta?.buttonLink && cta?.buttonText && (
         <a
           href={cta.buttonLink}
-          class="inline-block px-6 py-2.5 bg-gradient-to-r from-carolina-500 to-carolina-600 text-white font-medium rounded-lg hover:from-carolina-600 hover:to-carolina-700 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md hover:shadow-carolina/20"
+          class="inline-block px-6 py-2 border border-white bg-navy text-white font-medium rounded-none hover:bg-white hover:text-navy transition-colors duration-200"
           target="_blank"
           rel="noopener noreferrer"
         >
