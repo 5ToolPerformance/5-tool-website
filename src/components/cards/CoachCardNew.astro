@@ -1,0 +1,107 @@
+---
+import type { ImageType } from "../../lib/types";
+import { urlForImage } from "../../lib/urlForImage";
+import { Image } from "astro:assets";
+
+export interface Props {
+  name: string;
+  title: string;
+  image: ImageType;
+  description: string;
+  slug: {
+    current: string;
+    _type: string;
+  };
+  maxWords?: number;
+}
+
+const { name, title, image, description, slug, maxWords = 24 } = Astro.props;
+
+function toPlainText(input: any): string {
+  if (!input) return "";
+  if (typeof input === "string") return input;
+  if (Array.isArray(input)) {
+    // Likely Portable Text blocks
+    return input
+      .map((block) => {
+        if (
+          block &&
+          typeof block === "object" &&
+          block._type === "block" &&
+          Array.isArray(block.children)
+        ) {
+          return block.children.map((child: any) => child?.text ?? "").join("");
+        }
+        if (typeof block === "string") return block;
+        return "";
+      })
+      .join("\n")
+      .trim();
+  }
+  if (typeof input === "object" && typeof (input as any).text === "string") {
+    return (input as any).text;
+  }
+  return String(input ?? "");
+}
+
+function truncateWords(text: string, limit: number): string {
+  if (!text) return "";
+  const words = text
+    .replace(/<[^>]*>/g, " ")
+    .trim()
+    .split(/\s+/);
+  if (words.length <= limit) return words.join(" ");
+  return words.slice(0, limit).join(" ") + "…";
+}
+const imageUrl = image ? urlForImage(image).width(400).height(400).url() : "";
+---
+
+<div class="relative w-72 h-96 rounded-none overflow-hidden shadow-lg group">
+  <!-- Image -->
+  {
+    imageUrl ? (
+      <Image
+        src={imageUrl}
+        alt={name}
+        class="w-full h-full object-cover"
+        inferSize
+        loading="lazy"
+      />
+    ) : (
+      <div class="absolute inset-0 bg-gray-100 flex items-center w-full h-full justify-center">
+        <span class="text-gray-400 text-3xl font-bold">
+          {name
+            .split(" ")
+            .map((n) => n[0])
+            .join("")}
+        </span>
+      </div>
+    )
+  }
+
+  <!-- Overlay container -->
+  <div class="absolute inset-0 w-full overflow-hidden">
+    <!-- Inner wrapper that moves on hover -->
+    <div
+      class="absolute bottom-0 left-0 w-full h-full flex flex-col bg-white/95 backdrop-blur-sm transition-transform duration-500 ease-in-out will-change-transform translate-y-[calc(100%-theme(spacing.20))] md:translate-y-[calc(100%-theme(spacing.24))] group-hover:translate-y-0"
+    >
+      <!-- Header: Name + Title (visible initially at the bottom) -->
+      <div class="px-4 py-2 h-20 md:h-24">
+        <h3 class="text-2xl text-navy font-semibold">{name}</h3>
+        <p class="text-md text-carolina">{title}</p>
+      </div>
+
+      <!-- Excerpt (hidden above until hover) -->
+      <div class="mt-auto p-4 pt-0">
+        <p class="text-sm text-gray-700">
+          {truncateWords(toPlainText(description), maxWords)}
+        </p>
+        <a
+          href={`/about/${slug.current}`}
+          class="inline-block mt-2 text-carolina font-semibold hover:text-carolina-700"
+          >Read More</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
