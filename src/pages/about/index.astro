@@ -54,21 +54,16 @@ const { data: services } = await loadQuery<ServicesType[]>({
 ---
 
 <Layout seo={aboutPage?.seo} siteUrl="https://www.5tool.com">
-  <!-- Hero Section -->
-  <section
-    class="relative flex min-h-[40vh] items-center bg-cover bg-fixed bg-center bg-no-repeat px-4 py-16 text-white"
-    style={`background-image: linear-gradient(90deg, rgba(0,42,92,0.8) 0%, rgba(123,175,212,0.6) 100%), url('${bgImageUrl}')`}
-  >
-    <div class="container mx-auto">
-      <div class="max-w-3xl text-center mx-auto">
-        <h1
-          class="text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl"
-        >
+  <!-- Hero Section (minimal) -->
+  <section class="w-full bg-white py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-navy">
           {aboutPage?.title || "About Us"}
         </h1>
         {
           aboutPage?.subtitle && (
-            <p class="mt-4 text-xl text-blue-100 md:text-2xl">
+            <p class="mt-3 text-lg sm:text-xl text-navy/80">
               {aboutPage.subtitle}
             </p>
           )
@@ -79,39 +74,34 @@ const { data: services } = await loadQuery<ServicesType[]>({
 
   <!-- Main Content -->
   <main class="bg-white">
-    <!-- Company Info Section -->
-    <section class="py-16 md:py-24">
-      <div class="container mx-auto px-4">
-        <div class="mx-auto max-w-5xl">
-          <div class="grid gap-12 md:grid-cols-2 md:items-center">
-            <div class="space-y-6">
-              <div class="space-y-4">
-                <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">
-                  Our Company
-                </h2>
-                <div class="h-1.5 w-20 bg-carolina"></div>
-              </div>
-              <div class="prose max-w-none text-gray-600">
-                {
-                  aboutPage?.companyInfo && (
-                    <p class="text-lg leading-relaxed">
-                      {aboutPage.companyInfo}
-                    </p>
-                  )
-                }
-              </div>
+    <!-- Company Info Section (full-width split) -->
+    <section class="w-full bg-carolina">
+      <div class="flex flex-col md:flex-row w-full">
+        <!-- Image on left -->
+        {
+          aboutPage?.companyImage && (
+            <div class="w-full md:w-1/2">
+              <Image
+                src={urlForImage(aboutPage.companyImage).url()}
+                alt={aboutPage.companyImage?.alt || "Company Image"}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                inferSize
+              />
             </div>
+          )
+        }
+        <!-- Content on right -->
+        <div class="w-full md:w-1/2 p-8 md:p-16 flex items-center">
+          <div class="max-w-2xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-navy mb-6">
+              Our Company
+            </h2>
             {
-              aboutPage?.companyImage && (
-                <div class="overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-xl">
-                  <Image
-                    src={urlForImage(aboutPage.companyImage).url()}
-                    alt={aboutPage.companyImage?.alt || "Company Image"}
-                    class="h-full w-full object-cover"
-                    loading="lazy"
-                    inferSize
-                  />
-                </div>
+              aboutPage?.companyInfo && (
+                <p class="text-lg md:text-xl text-navy/90 leading-relaxed">
+                  {aboutPage.companyInfo}
+                </p>
               )
             }
           </div>
@@ -119,73 +109,54 @@ const { data: services } = await loadQuery<ServicesType[]>({
       </div>
     </section>
 
-    <!-- Facility Info Section -->
-    <section class="bg-gray-50 py-16 md:py-24">
-      <div class="container mx-auto px-4">
-        <div class="mx-auto max-w-5xl">
-          <div class="grid gap-12 md:grid-cols-2 md:items-center">
+    <!-- Facility Info Section (full-width split, image right) -->
+    <section class="w-full bg-navy text-white">
+      <div class="flex flex-col md:flex-row w-full">
+        <!-- Content on left -->
+        <div
+          class="w-full md:w-1/2 p-8 md:p-16 flex items-center order-2 md:order-1"
+        >
+          <div class="max-w-2xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Our Facility</h2>
             {
-              aboutPage?.facilityImage && (
-                <div class="order-1">
-                  <div class="overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-xl">
-                    <Image
-                      src={urlForImage(aboutPage.facilityImage).url()}
-                      alt={aboutPage.facilityImage?.alt || "Facility Image"}
-                      class="h-full w-full object-cover"
-                      loading="lazy"
-                      inferSize
-                    />
-                  </div>
-                </div>
+              aboutPage?.facilityInfo && (
+                <p class="text-lg md:text-xl text-white/90 leading-relaxed">
+                  {aboutPage.facilityInfo}
+                </p>
               )
             }
-            <div class="order-2 space-y-6 md:order-1">
-              <div class="space-y-4">
-                <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">
-                  Our Facility
-                </h2>
-                <div class="h-1.5 w-20 bg-carolina-500"></div>
-              </div>
-              <div class="prose max-w-none text-gray-600">
-                {
-                  aboutPage?.facilityInfo && (
-                    <p class="text-lg leading-relaxed">
-                      {aboutPage.facilityInfo}
-                    </p>
-                  )
-                }
-              </div>
-            </div>
           </div>
         </div>
+        <!-- Image on right -->
+        {
+          aboutPage?.facilityImage && (
+            <div class="w-full md:w-1/2 order-1 md:order-2">
+              <Image
+                src={urlForImage(aboutPage.facilityImage).url()}
+                alt={aboutPage.facilityImage?.alt || "Facility Image"}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                inferSize
+              />
+            </div>
+          )
+        }
       </div>
     </section>
     <!-- Coaches Section -->
-    <section class="py-16 bg-navy text-white">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold sm:text-4xl mb-4">Meet Our Coaches</h2>
-          <div class="h-1.5 w-20 bg-carolina mx-auto"></div>
+    <section class="relative py-8 sm:py-16 overflow-hidden bg-navy">
+      <!-- Main content -->
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl font-bold text-white sm:text-4xl md:text-5xl mb-4"
+          >
+            Meet Our Coaches
+          </h2>
+          <div class="w-20 h-1 bg-carolina-400 mx-auto mb-6"></div>
         </div>
 
-        <!-- Coach Carousel -->
-        <div class="relative max-w-6xl mx-auto">
-          <CoachCarousel coaches={coaches} />
-        </div>
-      </div>
-    </section>
-    <!-- Services Section -->
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold sm:text-4xl mb-4">Our Services</h2>
-          <div class="h-1.5 w-20 bg-carolina mx-auto"></div>
-        </div>
-
-        <!-- Services Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
-          {services.map((service) => <ServicesCard {...service} />)}
-        </div>
+        <CoachCarousel coaches={coaches} />
       </div>
     </section>
   </main>
