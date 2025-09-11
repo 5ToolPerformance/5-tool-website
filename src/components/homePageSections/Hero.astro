@@ -20,88 +20,62 @@ const { title, image, cta1, cta2, description } = Astro.props;
 const bgImageUrl = image ? urlForImage(image).url() : "";
 ---
 
-<section
-  class="relative flex min-h-[90vh] items-center bg-cover bg-center bg-no-repeat px-4 py-16 text-white md:py-24 overflow-hidden md:bg-fixed bg-scroll"
-  style={`background-image: linear-gradient(135deg, rgba(0, 57, 166, 0.5) 0%, rgba(0, 34, 102, 0.6) 100%), url('${bgImageUrl}')`}
+<section 
+  class="relative flex min-h-[90vh] w-full"
+  style={`background: url('${bgImageUrl}') no-repeat center center; background-size: cover;`}
 >
-  <div
-    class="container mx-auto flex h-full items-center justify-center md:justify-end"
-  >
-    <div
-      class="w-full max-w-2xl space-y-6 rounded-xl p-8 backdrop-blur-sm bg-navy-900/50 border border-white/10 shadow-2xl md:p-10 transform transition-all duration-500 hover:shadow-3xl hover:shadow-carolina-500/20"
-    >
-      <div class="space-y-2">
-        <h1
-          class="text-4xl font-bold leading-tight bg-gradient-to-r from-carolina-300 via-white to-carolina-200 bg-clip-text text-transparent sm:text-4xl md:text-5xl lg:text-6xl"
-        >
+  <div class="absolute inset-0 bg-carolina-900/50"></div>
+  
+  <div class="relative w-full flex items-center">
+    <div class="w-full md:w-1/2 bg-navy-900 p-8 md:p-16">
+      <div class="max-w-2xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
           {title}
         </h1>
-      </div>
-
-      {
-        description && (
-          <p class="text-lg leading-relaxed text-gray-200 sm:text-xl">
-            {description}
-          </p>
-        )
-      }
-
-      <div class="flex flex-wrap gap-4 pt-4">
+        
         {
-          cta1 && (
-            <a
-              href={cta1.buttonLink}
-              class="transform rounded-xl bg-gradient-to-r from-carolina-500 to-carolina-600 px-8 py-4 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-carolina-500/30 hover:from-carolina-600 hover:to-carolina-700 focus:outline-none focus:ring-2 focus:ring-carolina-300 focus:ring-offset-2"
-            >
-              {cta1.buttonText}
-            </a>
+          description && (
+            <p class="text-lg md:text-xl text-white/90 mb-8 leading-relaxed">
+              {description}
+            </p>
           )
         }
 
-        {
-          cta2 && (
-            <a
-              href={cta2.buttonLink}
-              class="transform rounded-xl border-2 border-carolina-400/50 bg-navy-900/40 px-8 py-4 text-sm font-semibold text-carolina-100 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-navy-800/60 hover:border-carolina-300 hover:shadow-lg hover:shadow-carolina-500/20 focus:outline-none focus:ring-2 focus:ring-carolina-300 focus:ring-offset-2"
-            >
-              {cta2.buttonText}
-            </a>
-          )
-        }
+        <div class="flex flex-col sm:flex-row gap-4">
+          {
+            cta1 && (
+              <a
+                href={cta1.buttonLink}
+                class="inline-block bg-carolina-700 hover:bg-carolina-800 text-white font-semibold py-3 px-8 text-center"
+              >
+                {cta1.buttonText}
+              </a>
+            )
+          }
+          
+          {
+            cta2 && (
+              <a
+                href={cta2.buttonLink}
+                class="inline-block bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-8 text-center border border-white/20"
+              >
+                {cta2.buttonText}
+              </a>
+            )
+          }
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce group">
-    <div
-      class="h-10 w-6 rounded-full border-2 border-carolina-300/70 flex items-center justify-center"
-    >
-      <div
-        class="h-3 w-0.5 bg-gradient-to-b from-carolina-300 to-carolina-100/50 rounded-full animate-scroll"
-      >
-      </div>
-    </div>
-    <div
-      class="absolute -bottom-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs text-carolina-200/80 font-medium"
-    >
-      Scroll
+    
+    <div class="hidden md:block w-1/2">
+      <!-- Empty space for the image background on the right side -->
     </div>
   </div>
-
-  <style>
-    @keyframes scroll {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(10px);
-        opacity: 0;
-      }
-    }
-    .animate-scroll {
-      animation: scroll 1.5s infinite;
-    }
-  </style>
+  
+  <!-- Simple scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+    <div class="h-10 w-6 flex items-center justify-center">
+      <div class="h-3 w-0.5 bg-white/70"></div>
+    </div>
+  </div>
 </section>
