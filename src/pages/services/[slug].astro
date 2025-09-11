@@ -37,90 +37,66 @@ const imageUrl = service?.image ? urlForImage(service.image).url() : "";
 ---
 
 <Layout seo={companyInfo?.seo} siteUrl="https://www.5tool.com">
-  <main class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-[#F8FAFC]">
-    <div class="max-w-7xl mx-auto">
-      {/* Hero Section */}
-      <div
-        class="relative overflow-hidden rounded-2xl shadow-xl mb-12 bg-gradient-to-b from-[#F0F9FF] to-[#F8FAFC]"
-      >
-        <div
-          class="absolute inset-0 bg-gradient-to-r from-carolina-300 to-carolina-500 opacity-10"
-        >
-        </div>
-        <div
-          class="relative px-6 py-12 sm:py-16 lg:px-16 flex flex-col md:flex-row items-center"
-        >
-          {
-            imageUrl && (
-              <div class="md:w-1/3 lg:w-1/2 mb-8 md:mb-0 md:pr-8">
-                <Image
-                  src={imageUrl}
-                  alt={service?.image?.alt || service?.name}
-                  class="rounded-xl shadow-lg w-full h-auto max-w-md mx-auto"
-                  loading="lazy"
-                  inferSize
-                />
-              </div>
-            )
-          }
-          <div
-            class={`${imageUrl ? "md:w-2/3 lg:w-1/2" : "w-full"} text-center md:text-left`}
-          >
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-navy">
-              {service?.name}
-            </h1>
-            {
-              service?.title && (
-                <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-carolina">
-                  {service.title}
-                </h2>
-              )
-            }
-            {
-              service?.shortDescription && (
-                <p class="text-lg text-gray-700 mb-6 max-w-3xl mx-auto md:mx-0">
-                  {service.shortDescription}
-                </p>
-              )
-            }
-            {/* Pricing can be shown below in a dedicated section */}
-          </div>
-        </div>
+  <main class="min-h-screen bg-white">
+    {/* Hero split: image | content */}
+    <section class="w-full flex flex-col md:flex-row bg-navy text-white">
+      <div class="w-full md:w-1/2">
+        {
+          imageUrl && (
+            <Image
+              src={imageUrl}
+              alt={service?.image?.alt || service?.name}
+              class="w-full h-full object-cover"
+              loading="lazy"
+              inferSize
+            />
+          )
+        }
       </div>
+      <div class="w-full md:w-1/2 p-8 md:p-16">
+        <h1 class="text-4xl md:text-5xl font-bold mb-3">{service?.name}</h1>
+        {
+          service?.shortDescription && (
+            <p class="text-lg text-white/90 max-w-2xl">
+              {service.shortDescription}
+            </p>
+          )
+        }
+      </div>
+    </section>
 
-      {/* Description Section */}
-      {
-        service?.description && (
-          <div class="bg-white rounded-2xl shadow-lg p-8 mb-12 hover:shadow-xl transition-shadow duration-300">
-            <h2 class="text-3xl font-bold mb-6 text-navy border-b-2 border-carolina pb-2 inline-block">
-              Service Details
-            </h2>
-            <div class="prose prose-lg max-w-none text-gray-700">
+    {/* Description full-width */}
+    {
+      service?.description && (
+        <section class="w-full bg-carolina">
+          <div class="max-w-full px-4 sm:px-6 lg:px-8 py-12">
+            <h2 class="text-3xl font-bold mb-6 text-navy">Service Details</h2>
+            <div class="prose prose-lg max-w-none text-navy-800">
               {service.description && (
                 <PortableTextRender content={service.description} />
               )}
             </div>
           </div>
-        )
-      }
+        </section>
+      )
+    }
 
-      {/* Pricing Section */}
-      {
-        service?.pricingInfo && service.pricingInfo.length > 0 && (
-          <div class="bg-white rounded-2xl shadow-lg p-8 mb-12 hover:shadow-xl transition-shadow duration-300">
-            <h2 class="text-3xl font-bold mb-6 text-navy border-b-2 border-carolina pb-2 inline-block">
-              Pricing Options
-            </h2>
-            <div class="flex flex-col gap-3">
+    {/* Pricing full-width */}
+    {
+      service?.pricingInfo && service.pricingInfo.length > 0 && (
+        <section class="w-full bg-white text-navy">
+          <div class="max-w-full px-4 sm:px-6 lg:px-8 py-12">
+            <h2 class="text-3xl font-bold mb-6">Pricing Options</h2>
+            <div class="flex flex-col divide-y divide-navy/20">
               {service.pricingInfo.map((item) => (
-                <div class="grid grid-cols-[1fr_auto_auto] items-center gap-4 p-6 rounded-md border border-gray-100 bg-gray-50">
-                  <p class="text-navy font-semibold">{item.title}</p>
-                  <p class="text-carolina text-lg font-bold w-32 text-center justify-self-center tabular-nums">
+                <div class="grid grid-cols-12 items-center py-3">
+                  <p class="col-span-6 font-medium text-navy">{item.title}</p>
+                  <p class="col-span-3 text-center text-base font-semibold tabular-nums text-navy">
                     {item.price}
                   </p>
                   <a
                     href={item.link}
-                    class="inline-flex items-center justify-center px-4 py-2 bg-navy text-white rounded-md hover:bg-opacity-90 transition-all duration-200 text-sm font-medium hover:shadow-md text-center whitespace-nowrap justify-self-end"
+                    class="col-span-3 justify-self-end inline-flex items-center justify-center px-3 py-1.5 bg-navy text-white rounded-none hover:bg-navy/90 transition-colors duration-200 text-sm font-medium"
                   >
                     Book Now
                   </a>
@@ -128,48 +104,32 @@ const imageUrl = service?.image ? urlForImage(service.image).url() : "";
               ))}
             </div>
           </div>
-        )
-      }
+        </section>
+      )
+    }
 
-      {/* CTA Section */}
-      <div class="text-center py-12">
-        <h2 class="text-3xl font-bold mb-6 text-navy">Ready to Get Started?</h2>
-        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-          Contact us today to learn more about our {service?.name.toLowerCase()}
-          services and how we can help you achieve your goals.
-        </p>
-        <a
-          href="/contact"
-          class="inline-block px-8 py-4 rounded-md font-bold text-white text-lg shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-carolina-300 to-carolina-500"
-        >
-          Get in Touch
-        </a>
-      </div>
-    </div>
+    {/* CTA full-width */}
+    <section class="w-full py-12 bg-navy text-white text-center">
+      <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+      <p class="text-lg mb-8 max-w-3xl mx-auto">
+        Contact us today to learn more about our {service?.name.toLowerCase()} services
+        and how we can help you achieve your goals.
+      </p>
+      <a
+        href="/contact"
+        class="inline-flex items-center px-6 py-3 text-base font-medium text-navy bg-white hover:bg-white/90 transition-colors rounded-none"
+      >
+        Get in Touch
+      </a>
+    </section>
   </main>
 </Layout>
 
 <style>
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   .prose {
     line-height: 1.7;
   }
-
   .prose p:not(:last-child) {
     margin-bottom: 1.25em;
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
   }
 </style>
