@@ -28,6 +28,11 @@ export const coach = defineType({
       type: "string",
     }),
     defineField({
+      name: "order",
+      title: "Order",
+      type: "number",
+    }),
+    defineField({
       name: "image",
       title: "Image",
       type: "customImage",
